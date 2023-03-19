@@ -15,7 +15,7 @@ const drawer = ref(false)
 
 <template>
     <v-app>
-        <div class="min-h-screen bg-gray-100">
+        <div class="min-h-screen bg-gray-100 pb-0">
             <nav class="bg-Emerald-400  drop-shadow">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,24 +29,24 @@ const drawer = ref(false)
                             </div>
                         </div>
 
-                        <div class="flex text-white items-center ">ログイン名：{{ $page.props.auth.user.name }}</div>
+                        <div class="flex text-white items-center font-medium">ログイン名：{{ $page.props.auth.user.name }}</div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
-                            <PrimaryButton class="ml-4" >
-                                <Link :href="route('logout')" method="post" as="button">
+                            <Link :href="route('logout')" method="post" as="button">
+                                <PrimaryButton class="ml-4" >
                                     Log Out
-                                </Link>
-                            </PrimaryButton>
+                                </PrimaryButton>
+                            </Link>
                         </div>
 
                         <div class="-mr-2 flex items-center sm:hidden">
-                            <PrimaryButton class="ml-4" >
-                                <Link :href="route('logout')" method="post" as="button">
+                            <Link :href="route('logout')" method="post" as="button">
+                                <PrimaryButton class="ml-4" >
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                                     </svg>
-                                </Link>
-                            </PrimaryButton>
+                                </PrimaryButton>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -82,16 +82,14 @@ const drawer = ref(false)
             </nav>
 
             <!-- Page Menu -->
-            <header class="bg-Emerald-300 shadow" >
-                <div class="max-w-7xl mx-auto py-1 px-4 sm:px-6 lg:px-8">
-                    <div>
+            <header class="bg-Emerald-300" >
+                <div class="max-w-7xl mx-auto pt-2 px-4 sm:px-6 lg:px-8">
                         <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
                         </NavLink>
                         <NavLink :href="route('xxx')" :active="route().current('xxx')">
                             xxx
                         </NavLink>
-                    </div>
                 </div>
             </header>
 

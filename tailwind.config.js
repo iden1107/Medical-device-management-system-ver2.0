@@ -19,7 +19,6 @@ module.exports = {
                 'Emerald-400': '#5EC5B0',
             }
         },
-
     },
 
     plugins: [require('@tailwindcss/forms')],
