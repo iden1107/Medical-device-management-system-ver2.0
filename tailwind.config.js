@@ -14,7 +14,12 @@ module.exports = {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },
+            colors: {
+                'Emerald-300': '#5AC0C0',
+                'Emerald-400': '#5EC5B0',
+            }
         },
+
     },
 
     plugins: [require('@tailwindcss/forms')],
