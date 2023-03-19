@@ -29,7 +29,7 @@ const drawer = ref(false)
                             </div>
                         </div>
 
-                        <div class="flex text-white items-center font-medium">ログイン名：{{ $page.props.auth.user.name }}</div>
+                        <div class="flex text-white items-center font-medium">　　　ログイン名：{{ $page.props.auth.user.name }}</div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <Link :href="route('logout')" method="post" as="button">
