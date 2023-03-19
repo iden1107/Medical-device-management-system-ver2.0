@@ -5,7 +5,7 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Dashboard" />
+    <Head title="フロアマップ" />
 
     <AuthenticatedLayout>
         <div class="py-12">

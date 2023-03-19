@@ -27,17 +27,17 @@ Route::get('/', function () {
         ]);
         return Inertia::render('login');
     }else{
-        return redirect()->to('/dashboard');
+        return redirect()->to('/floormap');
     };
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/floormap', function () {
+    return Inertia::render('Floormap');
+})->middleware(['auth', 'verified'])->name('floormap');
 
-Route::get('/xxx', function () {
-    return Inertia::render('Xxx');
-})->middleware(['auth', 'verified'])->name('xxx');
+Route::get('/inventory', function () {
+    return Inertia::render('Inventory');
+})->middleware(['auth', 'verified'])->name('inventory');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

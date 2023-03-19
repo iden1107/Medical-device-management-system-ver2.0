@@ -5,7 +5,7 @@ import { Head } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <Head title="Xxx" />
+    <Head title="在庫管理" />
 
     <AuthenticatedLayout>
         <div class="py-12">
