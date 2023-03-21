@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed ,onMounted } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -7,10 +7,34 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 const drawer = ref(false)
+
+// HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
+const time = computed(() => usePage().props.setting.setting.setting_minutes).value
+
+let FunctionId = 1;
+
+// setTimeOutをクリアする（クリックイベントでクリアするため）
+function clearTime(){
+    clearTimeout(FunctionId);
+    FunctionId = setTimeout(logout, time * 60000);
+}
+// ログアウトボタンのクリックをシュミレートする
+function logout(){
+    document.getElementById("logoutButton").click()
+}
+
+// 自動ログアウト  データベースに設定した時間が経過したらログアウト
+onMounted(() => {
+    FunctionId = setTimeout(function() {
+        logout
+    }, time * 60000)
+})
+// クリックするたびclearTime()を実行
+document.addEventListener('click',clearTime)
 </script>
 
 <template>
@@ -33,8 +57,8 @@ const drawer = ref(false)
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <Link :href="route('logout')" method="post" as="button">
-                                <PrimaryButton class="ml-4" >
-                                    Log Out
+                                <PrimaryButton class="ml-4" id="logoutButton">
+                                    Log Out{{time}}
                                 </PrimaryButton>
                             </Link>
                         </div>
@@ -50,8 +74,6 @@ const drawer = ref(false)
                         </div>
                     </div>
                 </div>
-
-
             </nav>
 
             <!-- Page Menu -->
