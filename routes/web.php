@@ -31,13 +31,14 @@ Route::get('/', function () {
     };
 });
 
-Route::get('/floormap', function () {
-    return Inertia::render('Floormap');
-})->middleware(['auth', 'verified'])->name('floormap');
-
-Route::get('/inventory', function () {
-    return Inertia::render('Inventory');
-})->middleware(['auth', 'verified'])->name('inventory');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/floormap', function () {
+        return Inertia::render('Floormap');
+    })->name('floormap');
+    Route::get('/inventory', function () {
+        return Inertia::render('Inventory');
+    })->name('inventory');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

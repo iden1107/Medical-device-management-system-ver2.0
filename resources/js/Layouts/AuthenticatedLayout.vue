@@ -39,7 +39,7 @@ document.addEventListener('click',clearTime)
 
 <template>
     <v-app>
-        <div class="min-h-screen bg-gray-100 pb-0">
+        <div class="min-h-screen pb-0">
             <nav class="bg-Emerald-400  drop-shadow">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -57,8 +57,8 @@ document.addEventListener('click',clearTime)
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <Link :href="route('logout')" method="post" as="button">
-                                <PrimaryButton class="ml-4" id="logoutButton">
-                                    Log Out{{time}}
+                                <PrimaryButton class="ml-4 bg-white text-Emerald-300 hover:text-white hover:border-white" id="logoutButton">
+                                    ログアウト
                                 </PrimaryButton>
                             </Link>
                         </div>
@@ -66,7 +66,7 @@ document.addEventListener('click',clearTime)
                         <div class="-mr-2 flex items-center sm:hidden">
                             <Link :href="route('logout')" method="post" as="button">
                                 <PrimaryButton class="ml-4" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                                     </svg>
                                 </PrimaryButton>
@@ -79,6 +79,7 @@ document.addEventListener('click',clearTime)
             <!-- Page Menu -->
             <header class="bg-Emerald-300" >
                 <div class="max-w-7xl mx-auto pt-2 px-4 sm:px-6 lg:px-8">
+                    {{time}}
                         <NavLink :href="route('floormap')" :active="route().current('floormap')">
                             配置図
                         </NavLink>
