@@ -12,15 +12,15 @@ import { Link, usePage } from '@inertiajs/vue3';
 const showingNavigationDropdown = ref(false);
 const drawer = ref(false)
 
-// HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
+// app/Http/Middleware/HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
 const time = computed(() => usePage().props.setting.setting.setting_minutes).value
 
-let FunctionId = 1;
+let timerID = 1;
 
 // setTimeOutをクリアする（クリックイベントでクリアするため）
 function clearTime(){
-    clearTimeout(FunctionId);
-    FunctionId = setTimeout(logout, time * 60000);
+    clearTimeout(timerID);
+    timerID = setTimeout(logout, time * 60000);
 }
 // ログアウトボタンのクリックをシュミレートする
 function logout(){
@@ -29,7 +29,7 @@ function logout(){
 
 // 自動ログアウト  データベースに設定した時間が経過したらログアウト
 onMounted(() => {
-    FunctionId = setTimeout(function() {
+    timerID = setTimeout(function() {
         logout
     }, time * 60000)
 })
