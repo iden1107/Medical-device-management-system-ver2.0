@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('manufacturer_id')->constrained();
             $table->integer('status');
             $table->date('inspection_date');
-            $table->foreignId('location')->constrained()->nullable();
+            $table->foreignId('location_id')->constrained()->nullable();
             $table->timestamps();
         });
     }
