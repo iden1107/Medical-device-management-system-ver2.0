@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DeviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +33,7 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/floormap', function () {
-        return Inertia::render('Floormap');
-    })->name('floormap');
+    Route::get('/floormap', [DeviceController::class, 'showFloormap'])->name('floormap');
     Route::get('/inventory', function () {
         return Inertia::render('Inventory');
     })->name('inventory');

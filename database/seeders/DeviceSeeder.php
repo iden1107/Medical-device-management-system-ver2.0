@@ -35,7 +35,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '2',
         ]);
         Device::create([
             'id' => '4',
@@ -59,7 +59,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '11',
         ]);
         Device::create([
             'id' => '7',
@@ -67,7 +67,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '9',
         ]);
         Device::create([
             'id' => '8',
@@ -83,7 +83,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '12',
         ]);
         Device::create([
             'id' => '10',
@@ -91,7 +91,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '5',
         ]);
         Device::create([
             'id' => '11',
@@ -99,7 +99,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '8',
         ]);
         Device::create([
             'id' => '12',
@@ -107,7 +107,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '8',
         ]);
         Device::create([
             'id' => '13',
@@ -115,7 +115,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '10',
         ]);
         Device::create([
             'id' => '14',
@@ -123,7 +123,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '4',
         ]);
         Device::create([
             'id' => '15',
@@ -155,7 +155,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '7',
         ]);
         Device::create([
             'id' => '19',
@@ -171,7 +171,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'location_id' => '6',
         ]);
     }
 }
