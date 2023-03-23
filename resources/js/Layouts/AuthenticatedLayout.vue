@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, computed ,onMounted } from 'vue';
 import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
@@ -7,15 +7,39 @@ import NavLink from '@/Components/NavLink.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 const drawer = ref(false)
+
+// app/Http/Middleware/HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
+const time = computed(() => usePage().props.setting.setting.setting_minutes).value
+
+let timerID = 1;
+
+// setTimeOutをクリアする（クリックイベントでクリアするため）
+function clearTime(){
+    clearTimeout(timerID);
+    timerID = setTimeout(logout, time * 60000);
+}
+// ログアウトボタンのクリックをシュミレートする
+function logout(){
+    document.getElementById("logoutButton").click()
+}
+
+// 自動ログアウト  データベースに設定した時間が経過したらログアウト
+onMounted(() => {
+    timerID = setTimeout(function() {
+        logout
+    }, time * 60000)
+})
+// クリックするたびclearTime()を実行
+document.addEventListener('click',clearTime)
 </script>
 
 <template>
     <v-app>
-        <div class="min-h-screen bg-gray-100 pb-0">
+        <div class="min-h-screen pb-0">
             <nav class="bg-Emerald-400  drop-shadow">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,8 +57,8 @@ const drawer = ref(false)
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <Link :href="route('logout')" method="post" as="button">
-                                <PrimaryButton class="ml-4" >
-                                    Log Out
+                                <PrimaryButton class="ml-4 bg-white text-Emerald-300 hover:text-white hover:border-white" id="logoutButton">
+                                    ログアウト
                                 </PrimaryButton>
                             </Link>
                         </div>
@@ -42,7 +66,7 @@ const drawer = ref(false)
                         <div class="-mr-2 flex items-center sm:hidden">
                             <Link :href="route('logout')" method="post" as="button">
                                 <PrimaryButton class="ml-4" >
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
                                     </svg>
                                 </PrimaryButton>
@@ -50,45 +74,16 @@ const drawer = ref(false)
                         </div>
                     </div>
                 </div>
-
-                <!-- Responsive Navigation Menu -->
-                <div
-                    :class="{ block: showingNavigationDropdown, hidden: !showingNavigationDropdown }"
-                    class="sm:hidden"
-                >
-                    <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
-                        </ResponsiveNavLink>
-                    </div>
-
-                    <!-- Responsive Settings Options -->
-                    <div class="pt-4 pb-1 border-t border-gray-200">
-                        <div class="px-4">
-                            <div class="font-medium text-base text-gray-800">
-                                {{ $page.props.auth.user.name }}
-                            </div>
-                            <div class="font-medium text-sm text-gray-500">{{ $page.props.auth.user.email }}</div>
-                        </div>
-
-                        <div class="mt-3 space-y-1">
-                            <ResponsiveNavLink :href="route('profile.edit')"> Profile </ResponsiveNavLink>
-                            <ResponsiveNavLink :href="route('logout')" method="post" as="button">
-                                Log Out
-                            </ResponsiveNavLink>
-                        </div>
-                    </div>
-                </div>
             </nav>
 
             <!-- Page Menu -->
-            <header class="bg-Emerald-300" >
+            <header class="bg-Emerald-300 hidden sm:block">
                 <div class="max-w-7xl mx-auto pt-2 px-4 sm:px-6 lg:px-8">
-                        <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                            Dashboard
+                        <NavLink :href="route('floormap')" :active="route().current('floormap')">
+                            配置図
                         </NavLink>
-                        <NavLink :href="route('xxx')" :active="route().current('xxx')">
-                            xxx
+                        <NavLink :href="route('inventory')" :active="route().current('inventory')">
+                            在庫管理
                         </NavLink>
                 </div>
             </header>

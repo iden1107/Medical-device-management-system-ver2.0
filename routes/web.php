@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DeviceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,17 +28,15 @@ Route::get('/', function () {
         ]);
         return Inertia::render('login');
     }else{
-        return redirect()->to('/dashboard');
+        return redirect()->to('/floormap');
     };
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/xxx', function () {
-    return Inertia::render('Xxx');
-})->middleware(['auth', 'verified'])->name('xxx');
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/floormap', [DeviceController::class, 'showFloormap'])->name('floormap');
+    Route::get('/device_detail/{id}', function(){dd('hello');})->name('detail')->where('id', '[0-9]+');
+    Route::get('/inventory', [DeviceController::class, 'showInventory'])->name('inventory');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
