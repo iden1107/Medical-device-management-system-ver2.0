@@ -35,9 +35,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/floormap', [DeviceController::class, 'showFloormap'])->name('floormap');
     Route::get('/device_detail/{id}', function(){dd('hello');})->name('detail')->where('id', '[0-9]+');
-    Route::get('/inventory', function () {
-        return Inertia::render('Inventory');
-    })->name('inventory');
+    Route::get('/inventory', [DeviceController::class, 'showInventory'])->name('inventory');
 });
 
 Route::middleware('auth')->group(function () {

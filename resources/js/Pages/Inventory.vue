@@ -2,13 +2,40 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import NavLink from '@/Components/NavLink.vue';
 import { Head } from '@inertiajs/vue3';
+import { ref, computed } from 'vue'
 
+defineProps({
+    devices:Object,
+    locations:Object,
+});
+
+const status = [
+    {label:'稼働中',color:'#80E368'},
+    {label:'待機中',color:'#6B9CE4'},
+    {label:'点検中',color:'#E3DD68'},
+    {label:'修理中',color:'#E36868'},
+    {label:'廃棄',color:'gray'},
+];
+let updateData = ref({});
+let fileName = 'csvファイルをドロップ'
+let isEnter = ref(false)
+
+function zeroPadding(id){
+    return ( '000' + id ).slice( -4 );
+}
+
+const isUpdateData = computed(() =>{
+    // return Object.keys(updateData.value).length
+        if(Object.keys(updateData.value).length){
+            return true
+        } else {
+            return false
+    }
+})
 // export default {
 //     name: "Inventory",
 //     data() {
 //         return {
-//             isEnter : false,
-//             fileName:'csvファイルをドロップ',
 //             updateData: {},
 //             status: [
 //                 { label: "稼働中", color: "#80E368" },
@@ -18,22 +45,6 @@ import { Head } from '@inertiajs/vue3';
 //                 { label: "廃棄", color: "gray" },
 //             ],
 //             devices: [],
-//             order: [
-//                 "臨床工学室",
-//                 "整形外科",
-//                 "眼科",
-//                 "内視鏡センター",
-//                 "生理検査室",
-//                 "皮膚科",
-//                 "産婦人科",
-//                 "リハビリテーション室",
-//                 "外科",
-//                 "処置室",
-//                 "内科",
-//                 "泌尿器科",
-//                 "小児科",
-//             ],
-//         };
 //     },
 //     computed: {
 //         backgroundColor(){
@@ -67,132 +78,119 @@ import { Head } from '@inertiajs/vue3';
 //             this.fileName = 'csvファイルをドロップ'
 //             this.getDevices();
 //         },
-//         dragEnter() {
-//             this.isEnter = true;
-//         },
-//         dragLeave() {
-//             this.isEnter = false;
-//         },
-//         dropFile(e) {
-//             if(e.dataTransfer.files[0].type !== 'text/csv'){
-//                 alert('ファイル形式がcsvでありません')
-//                 this.isEnter = false
-//                 return
-//             }
-//             this.isEnter = false
-//             this.fileName = e.dataTransfer.files[0].name
-//             const self = this
-//             let obj = {};
-//             const reader = new FileReader()
-//             reader.onload = function (e) {
-//                 let step1 = e.target.result.split(/\n/);
-//                 for (let i = 0; i < step1.length - 1 ; i++) {
-//                     let step2 = step1[i].split(",")
-//                     let key = step2.slice(0, 1)
-//                     let val = step2.slice(1).map(Number)
-//                     obj[key] = val;
-//                 }
-//                 self.updateData = obj;
-//             };
-//             reader.readAsText(e.dataTransfer.files[0])
-//         },
-//         cancel(){
-//             this.updateData = {};
-//             this.fileName = 'csvファイルをドロップ'
-//         }
+        function dragEnter() {
+            console.log("enter")
+            isEnter.value = true;
+        };
+        function dragLeave() {
+            isEnter.value = false;
+        };
+        function dropFile(e) {
+            if(e.dataTransfer.files[0].type !== 'text/csv'){
+                alert('ファイル形式がcsvでありません')
+                isEnter.value = false
+                return
+            }
+            isEnter.value = false
+            fileName = e.dataTransfer.files[0].name
+            let obj = {};
+            const reader = new FileReader()
+            reader.onload = function (e) {
+                let step1 = e.target.result.split(/\n/);
+                for (let i = 0; i < step1.length - 1 ; i++) {
+                    let step2 = step1[i].split(",")
+                    let key = step2.slice(0, 1)
+                    let val = step2.slice(1).map(Number)
+                    obj[key] = val;
+                }
+                updateData.value = obj;
+            };
+            reader.readAsText(e.dataTransfer.files[0])
+        };
+        function cancel(){
+            console.log("hh")
+            updateData = {};
+            fileName.value = 'csvファイルをドロップ'
+        }
 //     },
 //     watch: {
 //         $route() {
 //             this.getDevices();
 //         },
 //     },
-//     filters: {
-//         zeroPadding(value) {
-//             if(value !== 0){
-//                 return ("000" + value).slice(-4)
-//             }
-//         },
-//     },
-//     created() {
-//         this.getDevices();
-//     },
+
 // };
 </script>
 
 
 <template>
-<AuthenticatedLayout>
-    <div>
-        <v-row>
-        <v-col cols="12">
-            <v-card outlined>
-            <v-card-title>機器管理台帳</v-card-title>
-            <v-card-text>
-                <a href="/sample1.csv" download class="mr-4">サンプル1のcsvファイルをダウンロード</a>
-                <a href="/sample2.csv" download>サンプル2のcsvファイルをダウンロード</a>
-                <v-col class="drop_area"
-                    cols="12"
-                    md="6"
-                    :class="{enter: isEnter}"
-                    @dragenter="dragEnter"
-                    @dragleave="dragLeave"
-                    @dragover.prevent
-                    @drop.prevent="dropFile"
-                    :style="backgroundColor"
-                >
-                    {{fileName}}
-                </v-col>
-                <div class="pb-3 d-flex justify-end">
-                    <v-btn
-                    tile
-                    elevation="1"
-                    @click="cancel"
-                    class="mr-2"
-                    :disabled="fileName == 'csvファイルをドロップ'"
-                    >キャンセル</v-btn
+    <Head title="在庫管理" />
+    <AuthenticatedLayout>
+        <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
+                <v-card-title>在庫管理</v-card-title>
+                <v-card-text>
+                    <a href="csv/sample1.csv" download class="block text-base text-Emerald-300 hover:underline mr-4 ">・サンプル1のcsvファイルをダウンロード</a>
+                    <a href="csv/sample2.csv" download class="block text-base text-Emerald-300 hover:underline">・サンプル2のcsvファイルをダウンロード</a>
+                    <v-col class="drop_area"
+                        cols="12"
+                        md="6"
+                        :class="{enter: isEnter}"
+                        @dragenter="dragEnter"
+                        @dragleave="dragLeave"
+                        @dragover.prevent
+                        @drop.prevent="dropFile"
+                        :style="isUpdateData ? 'background-color:#FFF;':'background-color:#E0E0E0'"
                     >
-                    <v-btn
-                    tile
-                    elevation="1"
-                    @click="updateLocation"
-                    :disabled="fileName == 'csvファイルをドロップ'"
-                    >更新</v-btn
-                    >
-                </div>
-                <v-table dense fixed-header height="75vh">
-
-                    <thead>
-                    <tr>
-                        <th class="text-left">配置場所</th>
-                        <th class="text-left">更新前</th>
-                        <th class="text-left">更新後</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="location in order" :key="location">
-                        <td valign="baseline">{{ location }}</td>
-                        <td valign="baseline">
-                        <p v-for="device in devices[location]" :key="device.id">
-                            {{ device.id | zeroPadding }}
-                        </p>
-                        </td>
-                        <td valign="baseline">
-                        <p
-                            v-for="device in updateData[location]"
-                            :key="device.id"
+                        {{fileName}}
+                    </v-col>
+                    <div class="pb-3 d-flex justify-end">
+                        <v-btn
+                        tile
+                        elevation="1"
+                        @click="cancel"
+                        class="mr-2"
+                        :disabled="!isUpdateData"
+                        >キャンセル</v-btn
                         >
-                            {{ device | zeroPadding }}
-                        </p>
-                        </td>
-                    </tr>
-                    </tbody>
+                        <v-btn
+                        tile
+                        elevation="1"
+                        @click="updateLocation"
+                        :disabled="!isUpdateData"
+                        >更新</v-btn
+                        >
+                    </div>
+                    <v-table dense fixed-header height="75vh">
 
-                </v-table>
-            </v-card-text>
-            </v-card>
-        </v-col>
-        </v-row>
-    </div>
+                        <thead>
+                        <tr>
+                            <th class="text-left">配置場所</th>
+                            <th class="text-left">更新前</th>
+                            <th class="text-left">更新後</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr v-for="location in locations" :key="location.id">
+                            <td valign="baseline">{{ location.name }}</td>
+                            <td valign="baseline">
+                            <p v-for="device in devices[location.id]" :key="device.id" class="device-id">
+                                {{ zeroPadding(device.id) }}
+                            </p>
+                            </td>
+                            <td valign="baseline">
+                            <p
+                                v-for="device in updateData[location.id]"
+                                :key="device.id"
+                                class="device-id"
+                            >
+                                {{ zeroPadding(device) }}
+                            </p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </v-table>
+                </v-card-text>
+        </div>
     </AuthenticatedLayout>
 </template>
 
@@ -211,5 +209,8 @@ import { Head } from '@inertiajs/vue3';
 .enter {
     border: 2px dashed gray;
     opacity: 0.7;
+}
+.device-id{
+    font-family:monospace, serif;
 }
 </style>
