@@ -77,9 +77,8 @@ document.addEventListener('click',clearTime)
             </nav>
 
             <!-- Page Menu -->
-            <header class="bg-Emerald-300" >
+            <header class="bg-Emerald-300 hidden sm:block">
                 <div class="max-w-7xl mx-auto pt-2 px-4 sm:px-6 lg:px-8">
-                    {{time}}
                         <NavLink :href="route('floormap')" :active="route().current('floormap')">
                             配置図
                         </NavLink>
