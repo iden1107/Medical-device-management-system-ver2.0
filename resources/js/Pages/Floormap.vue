@@ -36,7 +36,7 @@ function isExpired(inspection_date){
 </script>
 
 <template>
-    <Head title="フロアマップ" />
+    <Head title="フロアマップ-" />
     <AuthenticatedLayout>
         <div class="py-3">
             <div class="map max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">

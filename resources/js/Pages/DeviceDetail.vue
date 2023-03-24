@@ -65,9 +65,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Link, Head,usePage } from '@inertiajs/vue3';
 import { ref,computed } from 'vue';
+// { "device_id": 17, "device_name": "点滴ポンプ", "inspection_date": "2023-06-01", "status": 1, "location_id": 10,
+// "location_name": "処置室", "manufacturer_id": 1, "manufacturer_name": "A社" }
 
 defineProps({
     device:Object,
+    manufacturers:Object
 })
 const locations = computed(() => usePage().props.locations).value
 const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
@@ -76,12 +79,13 @@ const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
 
 
 <template>
-    <Head title="詳細" />
+    <Head title="詳細-" />
     <AuthenticatedLayout>
     <div>
         <v-row>
             <v-col cols="12">
                 <v-card outlined>
+    {{locations}}
                     <v-card-text>
                         <v-row>
                             <v-col cols="12" md="6">
@@ -104,7 +108,7 @@ const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
                                         persistent-hint
                                         type="number"
                                         hide-spin-buttons
-                                        v-model="device.id"
+                                        v-model="device.device_id"
                                         :filled="(device.id === '') ? true : false"
                                         disabled
                                     ></v-text-field>
@@ -122,7 +126,7 @@ const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
                                         persistent-hint
                                         type="text"
                                         hide-spin-buttons
-                                        v-model="device.name"
+                                        v-model="device.device_name"
                                         :filled="(device.name === '') ? true : false"
                                     ></v-text-field>
                                     </v-col>
@@ -139,7 +143,7 @@ const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
                                         persistent-hint
                                         type="text"
                                         hide-spin-buttons
-                                        v-model="device.manufacturer"
+                                        v-model="device.manufacturer_name"
                                         :filled="(device.manufacturer === '') ? true : false"
                                     ></v-text-field>
                                     </v-col>
@@ -187,7 +191,7 @@ const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
                                                     color="#959595"
                                                     type="text"
                                                     hide-spin-buttons
-                                                    :value="currentLocation"
+                                                    :value="device.location_name"
                                                     :filled="(device.inspection_date === '') ? true : false"
                                                     readonly
                                                     class="current-location-textarea"
@@ -201,7 +205,7 @@ const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
                                                 dense
                                                 outlined
                                                 color="#959595"
-                                                :items="location"
+                                                :items="locations"
                                                 label="移動先"
                                                 v-model="device.location"
                                                 ></v-select>
