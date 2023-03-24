@@ -13,7 +13,7 @@ const showingNavigationDropdown = ref(false);
 const drawer = ref(false)
 
 // app/Http/Middleware/HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
-const time = computed(() => usePage().props.setting.setting.setting_minutes).value
+const time = computed(() => usePage().props.setting.setting_minutes).value
 
 let timerID = 1;
 
@@ -40,7 +40,7 @@ document.addEventListener('click',clearTime)
 <template>
     <v-app>
         <div class="min-h-screen pb-0">
-            <nav class="bg-Emerald-400  drop-shadow">
+            <div class="bg-Emerald-400 shadow w-full fixed z-20">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="flex justify-between h-10">
@@ -74,12 +74,12 @@ document.addEventListener('click',clearTime)
                         </div>
                     </div>
                 </div>
-            </nav>
+            </div>
 
             <!-- Page Menu -->
-            <header class="bg-Emerald-300 hidden sm:block">
+            <header class="bg-Emerald-300 hidden sm:block mt-10 w-full fixed z-10">
                 <div class="max-w-7xl mx-auto pt-2 px-4 sm:px-6 lg:px-8">
-                        <NavLink :href="route('floormap')" :active="route().current('floormap')">
+                        <NavLink :href="route('floormap')" :active="route().current('floormap') || route().current('deviceDetail*')" >
                             配置図
                         </NavLink>
                         <NavLink :href="route('inventory')" :active="route().current('inventory')">
@@ -89,7 +89,7 @@ document.addEventListener('click',clearTime)
             </header>
 
             <!-- Page Content -->
-            <main>
+            <main class="pt-20">
                 <slot />
             </main>
         </div>

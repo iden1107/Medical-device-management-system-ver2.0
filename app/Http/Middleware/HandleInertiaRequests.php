@@ -7,6 +7,7 @@ use Inertia\Middleware;
 use Inertia\Inertia;
 use Tightenco\Ziggy\Ziggy;
 use App\Models\Setting;
+use App\Models\Location;
 
 class HandleInertiaRequests extends Middleware
 {
@@ -41,9 +42,8 @@ class HandleInertiaRequests extends Middleware
                     'location' => $request->url(),
                 ]);
             },
-            'setting' => [
-                'setting' => Setting::first()
-            ]
+            'setting' => Setting::first(),
+            'locations' => Location::all(),
         ]);
     }
 }

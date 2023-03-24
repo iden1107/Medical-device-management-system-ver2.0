@@ -20,7 +20,13 @@ class DeviceController extends Controller
     {
         return Inertia::render('Inventory',[
             'devices' => Device::all()->groupBy('location_id'),
-            'locations' => Location::all()
+        ]);
+    }
+    // 詳細画面を作る！！！
+    public function showDeviceDetail($id)
+    {
+        return Inertia::render('DeviceDetail',[
+            'device' => Device::where('id',$id)->first()
         ]);
     }
 }
