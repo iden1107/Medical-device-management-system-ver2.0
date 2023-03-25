@@ -318,55 +318,55 @@ p{
     box-sizing: border-box;
 }
 .ce{
-    left: 12.8%;
+    left: 14%;
     bottom: 76%;
 }
 .orthopedics{
-    left: 36%;
+    left: 37%;
     bottom: 79%;
 }
 .ophthalmology{
-    left: 47%;
+    left: 47.5%;
     bottom: 79%;
 }
 .endoscope{
-    left: 56%;
+    left: 57%;
     bottom: 78%;
 }
 .physiological-laboratory{
-    left: 64.5%;
+    left: 65%;
     bottom: 76.5%;
 }
 .dermatology{
-    left: 70.5%;
-    bottom: 68%;
+    left: 71.5%;
+    bottom: 69%;
 }
 .gynecology{
     left: 83%;
-    bottom: 41%;
+    bottom: 44%;
 }
 .rehabilitation{
-    left: 15%;
-    bottom: 35.5%;
+    left: 16%;
+    bottom: 39%;
 }
 .surgery{
-    left: 21%;
-    bottom: 18%;
+    left: 22%;
+    bottom: 22%;
 }
 .treatment-room{
-    left: 38.5%;
-    bottom: 23%;
+    left: 39.5%;
+    bottom: 26%;
 }
 .internal-medicine{
-    left: 46%;
-    bottom: 12%;
+    left: 47.5%;
+    bottom: 16%;
 }
 .urology{
-    left: 65.5%;
-    bottom: 12%;
+    left: 66.5%;
+    bottom: 16%;
 }
 .pediatrics{
-    left: 77.8%;
-    bottom: 12%;
+    left: 79%;
+    bottom: 16%;
 }
 </style>
