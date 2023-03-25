@@ -1,0 +1,480 @@
+<script setup>
+// export default {
+//     name: "DeviceDetail",
+//     data() {
+//         return {
+//             src:'',
+//             device:{},
+//             status:[
+//                 {label:'稼働中',color:'#80E368'},
+//                 {label:'待機中',color:'#6B9CE4'},
+//                 {label:'点検中',color:'#E3DD68'},
+//                 {label:'修理中',color:'#E36868'},
+//                 {label:'廃棄',color:'gray'},
+//             ],
+//             currentLocation:'',
+//             location:['臨床工学室','整形外科','眼科','内視鏡センター','生理検査室','皮膚科','産婦人科','リハビリテーション室','外科','処置室','内科','泌尿器科','小児科',],
+//             color:['#80E368','#6B9CE4','#E3DD68','#E36868','gray'],
+//         };
+//     },
+//     methods: {
+//         async getDevice(){
+//             this.src = ''
+//             await axios.get('/api/getDevice/' + this.$route.params.id).then((res)=>{
+//                 this.device = res.data
+//             })
+//             if(this.device.name === '点滴ポンプ'){
+//                 this.src = '/img/device1.jpeg'
+//             }else{
+//                 this.src = '/img/device2.jpeg'
+//             }
+//             if(this.$route.params.id){
+//                 this.currentLocation = this.device.location.slice()
+//                 this.device.id = ( '000' + this.device.id ).slice( -4 )
+//             }
+//         },
+//         changeStatus(val){
+//             this.device.status = val
+//         },
+//         cancel(){
+//             this.$router.push('/admin/devices')
+//         },
+//         async updateDevice(){
+//             // 廃棄（status = 4)なら配置場所がないのでlocationを空文字にする
+//             if(this.device.status == 4){
+//                 this.device.location = ''
+//             }
+//             await axios.post('/api/updateDevice' , this.device)
+//             this.$router.push('/admin/devices')
+//         }
+//     },
+//     watch:{
+//         $route(){
+//             this.getDevice()
+//         }
+//     },
+//     filters :{
+//         zeroPadding(value){
+//             return ( '000' + value ).slice( -4 );
+//         }
+//     },
+//     created(){
+//         this.getDevice()
+//     }
+// };
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import SelectBox from '@/Components/SelectBox.vue';
+import SelectButton from '@/Components/SelectButton.vue';
+
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+
+
+import { Link, Head,usePage } from '@inertiajs/vue3';
+import { ref,computed } from 'vue';
+
+const props = defineProps({
+    device:Object,
+    manufacturers:Object
+})
+const locations = computed(() => usePage().props.locations).value
+const imgSrc = computed(() => {
+    if(props.device.device_name == '点滴ポンプ'){
+        return '/img/device1.jpeg';
+    }else if(props.device.device_name == '心電図モニター'){
+        return '/img/device2.jpeg';
+    }else{
+        return '/img/noImage.jpeg'
+    }
+});
+// ボタンのクラス制御
+const active = computed(() =>{
+    return function(arg){
+        switch (arg){
+            case 1:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#6B9CE4] focus:outline-none hover:bg-[#6B9CE4] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#6B9CE4] border-[#6B9CE4] focus:outline-none hover:bg-[#6B9CE4] hover:text-white transition duration-150 ease-in-out';
+                }
+            case 2:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#80E368] focus:outline-none hover:bg-[#80E368] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#80E368] border-[#80E368] focus:outline-none hover:bg-[#80E368] hover:text-white transition duration-150 ease-in-out';
+                }
+            case 3:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#E3DD68] focus:outline-none hover:bg-[#E3DD68] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#E3DD68] border-[#E3DD68] focus:outline-none hover:bg-[#E3DD68] hover:text-white transition duration-150 ease-in-out';
+                }
+            case 4:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#E36868] focus:outline-none hover:bg-[#E36868] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#E36868] border-[#E36868] focus:outline-none hover:bg-[#E36868] hover:text-white transition duration-150 ease-in-out';
+                }
+            case 5:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#979797] focus:outline-none hover:bg-[#979797] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#979797] border-[#979797] focus:outline-none hover:bg-[#979797] hover:text-white transition duration-150 ease-in-out';
+                }
+        }
+    }
+}
+
+);
+const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','#979797']; // これは不要！！！！！！！！！！！！！！！
+const statuses = [
+    {id:1,label:'稼働中',color:'#6B9CE4'},
+    {id:2,label:'待機中',color:'#80E368'},
+    {id:3,label:'点検中',color:'#E3DD68'},
+    {id:4,label:'修理中',color:'#E36868'},
+    {id:5,label:' 廃棄 ',color:'#979797'},
+]
+
+
+const changeStatus = (id) =>{
+    props.device.status = id;
+}
+</script>
+
+
+<template>
+    <Head title="詳細 - " />
+    <AuthenticatedLayout>
+
+    <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
+        <!-- サンプル -->
+        <!-- <div class="grid sm:grid-cols-12 grid-cols-1 gap-3">
+            <div class="sm:col-span-5 bg-blue-400 text-center text-white p-2 rounded">1</div>
+            <div class="sm:col-span-7 bg-blue-400 text-center text-white p-2 rounded">2</div>
+            <div class="sm:col-span-6 bg-blue-400 text-center text-white p-2 rounded">1</div>
+            <div class="sm:col-span-6 bg-blue-400 text-center text-white p-2 rounded">2</div>
+        </div> -->
+
+            {{device}}
+        <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-6">
+            <!-- 左画面 -->
+            <div class="sm:col-span-6 px-3">
+                <!-- 画像 -->
+                <InputLabel for="device_id" value="写真画像"/>
+                <div class="w-full pb-3">
+                    <img :src="imgSrc" alt="" class="w-full">
+                </div>
+                <!-- 管理番号 -->
+                <InputLabel for="device_id" value="管理番号" />
+                <TextInput
+                    id="device_id"
+                    type="text"
+                    class="mt-1 block w-2/3 text-gray-300"
+                    v-model="device.device_id"
+                    disabled
+                    required
+                />
+                <!-- 製品名 -->
+                <InputLabel for="device_name" value="製品名" class="mt-5"/>
+                <TextInput
+                    id="device_name"
+                    type="text"
+                    class="mt-1 block w-2/3"
+                    v-model="device.device_name"
+                    required
+                />
+                <!-- メーカー -->
+                <InputLabel for="manufacturer_name" value="メーカー" class="mt-5"/>
+                <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id"/>
+                <!-- 状態 -->
+                <InputLabel value="状態" class="mt-5"/>
+                <SelectButton v-for="status in statuses" :key="status.id" :class="active(status.id)" @click="changeStatus(status.id)">
+                    {{status.label}}
+                </SelectButton>
+            </div>
+            <!--右画面  -->
+            <div class="sm:col-span-6 p-2">2</div>
+
+        </div>
+    </div>
+
+
+
+
+    <div>
+        <v-row>
+            <v-col cols="12">
+                <v-card outlined>
+                    <v-card-text>
+                        <v-row>
+                            <v-col cols="12" md="6">
+                                <v-row>
+                                    <v-col cols="12">
+                                        <div class="device-img">
+                                            <img :src="src" alt="" width="100%">
+                                        </div>
+                                    </v-col>
+                                    <v-col cols="3" >
+                                    <v-subheader>管理番号</v-subheader>
+                                    </v-col>
+                                    <v-col cols="8" >
+                                        <v-text-field
+                                        height="10"
+                                        single-line
+                                        outlined
+                                        dense
+                                        color="#959595"
+                                        persistent-hint
+                                        type="number"
+                                        hide-spin-buttons
+                                        v-model="device.device_id"
+                                        :filled="(device.id === '') ? true : false"
+                                        disabled
+                                    ></v-text-field>
+                                    </v-col>
+
+
+                                    <v-col cols="3" >
+                                    <v-subheader>製品名</v-subheader>
+                                    </v-col>
+                                    <v-col cols="8" >
+                                        <v-text-field
+                                        height="10"
+                                        single-line
+                                        outlined
+                                        dense
+                                        color="#959595"
+                                        persistent-hint
+                                        type="text"
+                                        hide-spin-buttons
+                                        v-model="device.device_name"
+                                        :filled="(device.name === '') ? true : false"
+                                    ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="3" >
+                                    <v-subheader>メーカー</v-subheader>
+                                    </v-col>
+                                    <v-col cols="8" >
+                                        <v-text-field
+                                        height="10"
+                                        single-line
+                                        outlined
+                                        dense
+                                        color="#959595"
+                                        persistent-hint
+                                        type="text"
+                                        hide-spin-buttons
+                                        v-model="device.manufacturer_name"
+                                        :filled="(device.manufacturer === '') ? true : false"
+                                    ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12">
+                                        <v-subheader>状態</v-subheader>
+                                        <v-btn
+                                            v-for="(item,index) in status"
+                                            :key="item.label" elevation="0"
+                                            :color="item.color" tile class="ma-2"
+                                            :outlined="index !== device.status"
+                                            @click="changeStatus(index)"
+                                        ><span >{{item.label}}</span>
+                                        </v-btn>
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                            <v-col cols="12" md="6">
+                                <v-row>
+                                    <v-col cols="3" >
+                                    <v-subheader>次回点検日</v-subheader>
+                                    </v-col>
+                                    <v-col cols="7" >
+                                        <v-text-field
+                                        height="10"
+                                        single-line
+                                        outlined
+                                        dense
+                                        color="#959595"
+                                        persistent-hint
+                                        type="date"
+                                        hide-spin-buttons
+                                        v-model="device.inspection_date"
+                                        :filled="(device.inspection_date === '') ? true : false"
+                                    ></v-text-field>
+                                    </v-col>
+                                    <v-col cols="12" >
+                                        <v-subheader>現在配置</v-subheader>
+                                        <v-row>
+                                            <v-col cols="5">
+                                                <v-text-field
+                                                    height="10"
+                                                    single-line
+                                                    outlined
+                                                    dense
+                                                    color="#959595"
+                                                    type="text"
+                                                    hide-spin-buttons
+                                                    :value="device.location_name"
+                                                    :filled="(device.inspection_date === '') ? true : false"
+                                                    readonly
+                                                    class="current-location-textarea"
+                                                ></v-text-field>
+                                            </v-col>
+                                            <v-icon size="30" class="pb-6">mdi-arrow-right-bold</v-icon>
+                                            <v-col cols="5">
+                                                <v-select
+                                                height="10"
+                                                single-line
+                                                dense
+                                                outlined
+                                                color="#959595"
+                                                :items="locations"
+                                                label="移動先"
+                                                v-model="device.location"
+                                                ></v-select>
+                                            </v-col>
+                                        </v-row>
+                                        <div class="map">
+                                            <img :src="'/img/map.png'" alt="">
+                                            <div class="ce subject">
+                                                <v-icon size="5vh" v-show="device.location ==='臨床工学室'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="orthopedics subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='整形外科'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="ophthalmology subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='眼科'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="endoscope subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='内視鏡センター'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="physiological-laboratory subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='生理検査室'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="dermatology subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='皮膚科'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="gynecology subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='産婦人科'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="rehabilitation subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='リハビリテーション室'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="surgery subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='外科'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="treatment-room subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='処置室'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="internal-medicine subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='内科'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="urology subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='泌尿器科'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                            <div class="pediatrics subject">
+                                                <v-icon size="5vh" v-show="this.device.location ==='小児科'" :color="color[device.status]">mdi-map-marker</v-icon>
+                                            </div>
+                                        </div>
+                                    </v-col>
+                                    <v-col>
+                                        <v-card-actions class="justify-end">
+                                            <v-btn tile elevation="1" @click="cancel">キャンセル</v-btn>
+                                            <v-btn tile elevation="1"  @click="updateDevice">更新</v-btn>
+                                        </v-card-actions>
+                                    </v-col>
+                                </v-row>
+                            </v-col>
+                        </v-row>
+                    </v-card-text>
+                </v-card>
+            </v-col>
+        </v-row>
+    </div>
+    </AuthenticatedLayout>
+</template>
+
+<style scoped >
+.device-img{
+    width: 40vh;
+    height: 40vh;
+}
+.v-input{
+    border-radius: 0px;
+    padding: 0px;
+}
+.v-subheader{
+    padding: 0  0 0 5px  ;
+}
+p{
+    font-size: 0.11vw;
+    margin: 0;
+    padding: 0;
+    /* text-shadow: 1px 1px 1px #FFF; */
+}
+.current-location-textarea{
+    user-select: none;
+}
+/* 各科目の位置 */
+.map{
+    overflow: scroll;
+    position: relative;
+    padding: 10px;
+    /* border: 1px solid black; */
+}
+.subject{
+    position: absolute;
+    box-sizing: border-box;
+}
+.ce{
+    left: 12.8%;
+    bottom: 76%;
+}
+.orthopedics{
+    left: 36%;
+    bottom: 79%;
+}
+.ophthalmology{
+    left: 47%;
+    bottom: 79%;
+}
+.endoscope{
+    left: 56%;
+    bottom: 78%;
+}
+.physiological-laboratory{
+    left: 64.5%;
+    bottom: 76.5%;
+}
+.dermatology{
+    left: 70.5%;
+    bottom: 68%;
+}
+.gynecology{
+    left: 83%;
+    bottom: 41%;
+}
+.rehabilitation{
+    left: 15%;
+    bottom: 35.5%;
+}
+.surgery{
+    left: 21%;
+    bottom: 18%;
+}
+.treatment-room{
+    left: 38.5%;
+    bottom: 23%;
+}
+.internal-medicine{
+    left: 46%;
+    bottom: 12%;
+}
+.urology{
+    left: 65.5%;
+    bottom: 12%;
+}
+.pediatrics{
+    left: 77.8%;
+    bottom: 12%;
+}
+</style>

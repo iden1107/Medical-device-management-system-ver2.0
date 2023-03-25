@@ -1,14 +1,14 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Head } from '@inertiajs/vue3';
+import { Head,usePage } from '@inertiajs/vue3';
 import { ref, computed } from 'vue'
 
 defineProps({
     devices:Object,
-    locations:Object,
 });
 
+const locations = computed(() => usePage().props.locations).value
 const status = [
     {label:'稼働中',color:'#80E368'},
     {label:'待機中',color:'#6B9CE4'},
@@ -25,7 +25,6 @@ function zeroPadding(id){
 }
 
 const isUpdateData = computed(() =>{
-    // return Object.keys(updateData.value).length
         if(Object.keys(updateData.value).length){
             return true
         } else {
@@ -108,7 +107,6 @@ const isUpdateData = computed(() =>{
             reader.readAsText(e.dataTransfer.files[0])
         };
         function cancel(){
-            console.log("hh")
             updateData = {};
             fileName.value = 'csvファイルをドロップ'
         }
@@ -124,7 +122,7 @@ const isUpdateData = computed(() =>{
 
 
 <template>
-    <Head title="在庫管理" />
+    <Head title="在庫管理 - " />
     <AuthenticatedLayout>
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
                 <v-card-title>在庫管理</v-card-title>
