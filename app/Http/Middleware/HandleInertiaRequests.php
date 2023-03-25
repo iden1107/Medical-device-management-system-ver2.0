@@ -43,7 +43,7 @@ class HandleInertiaRequests extends Middleware
                 ]);
             },
             'setting' => Setting::first(),
-            'locations' => Location::all(),
+            'locations' => Location::where('id','<>','99')->get(),
         ]);
     }
 }

@@ -94,40 +94,37 @@ const active = computed(() =>{
         switch (arg){
             case 0:
                 if(props.device.status == arg){
-                    return 'block text-white bg-[#6B9CE4] focus:outline-none hover:bg-[#6B9CE4] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-white bg-[#6B9CE4] hover:bg-[#6B9CE4]';
                 }else{
-                    return 'block text-[#6B9CE4] border-[#6B9CE4] focus:outline-none hover:bg-[#6B9CE4] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-[#6B9CE4] border-[#6B9CE4] hover:bg-[#6B9CE4]';
                 }
             case 1:
                 if(props.device.status == arg){
-                    return 'block text-white bg-[#80E368] focus:outline-none hover:bg-[#80E368] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-white bg-[#80E368] hover:bg-[#80E368]';
                 }else{
-                    return 'block text-[#80E368] border-[#80E368] focus:outline-none hover:bg-[#80E368] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-[#80E368] border-[#80E368] hover:bg-[#80E368]';
                 }
             case 2:
                 if(props.device.status == arg){
-                    return 'block text-white bg-[#E3DD68] focus:outline-none hover:bg-[#E3DD68] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-white bg-[#E3DD68] hover:bg-[#E3DD68]';
                 }else{
-                    return 'block text-[#E3DD68] border-[#E3DD68] focus:outline-none hover:bg-[#E3DD68] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-[#E3DD68] border-[#E3DD68] hover:bg-[#E3DD68]';
                 }
             case 3:
                 if(props.device.status == arg){
-                    return 'block text-white bg-[#E36868] focus:outline-none hover:bg-[#E36868] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-white bg-[#E36868] hover:bg-[#E36868]';
                 }else{
-                    return 'block text-[#E36868] border-[#E36868] focus:outline-none hover:bg-[#E36868] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-[#E36868] border-[#E36868] hover:bg-[#E36868]';
                 }
             case 4:
                 if(props.device.status == arg){
-                    return 'block text-white bg-[#979797] focus:outline-none hover:bg-[#979797] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-white bg-[#979797] hover:bg-[#979797]';
                 }else{
-                    return 'block text-[#979797] border-[#979797] focus:outline-none hover:bg-[#979797] hover:text-white transition duration-150 ease-in-out';
+                    return 'text-[#979797] border-[#979797] hover:bg-[#979797]';
                 }
         }
     }
-}
-
-);
-const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','#979797']; // これは不要！！！！！！！！！！！！！！！
+});
 const statuses = [
     {id:0,label:'稼働中',color:'#6B9CE4'},
     {id:1,label:'待機中',color:'#80E368'},
@@ -139,6 +136,10 @@ const statuses = [
 
 const changeStatus = (id) =>{
     props.device.status = id;
+    // 廃棄(4)の場合はlocation_idを99にする
+    if(id == 4){
+        props.device.location_id = 99;
+    }
 }
 </script>
 
@@ -170,7 +171,7 @@ const changeStatus = (id) =>{
                 <TextInput
                     id="device_id"
                     type="text"
-                    class="mt-1 block w-2/3 text-gray-300"
+                    class="mt-1 w-2/3 text-gray-300"
                     v-model="device.device_id"
                     disabled
                     required
@@ -180,7 +181,7 @@ const changeStatus = (id) =>{
                 <TextInput
                     id="device_name"
                     type="text"
-                    class="mt-1 block w-2/3"
+                    class="mt-1 w-2/3"
                     v-model="device.device_name"
                     required
                 />
@@ -194,201 +195,94 @@ const changeStatus = (id) =>{
                 </SelectButton>
             </div>
             <!--右画面  -->
-            <div class="sm:col-span-6 p-2">2</div>
-
+            <div class="sm:col-span-6 px-3 pb-5 relative">
+                <!-- 次回点検日 -->
+                <InputLabel for="inspection_date" value="次回点検日"/>
+                <TextInput
+                    id="inspection_date"
+                    type="date"
+                    class="mt-1 w-2/3"
+                    v-model="device.inspection_date"
+                    required
+                />
+                <!-- 現在配置 -->
+                <InputLabel for="location" value="現在配置" class="mt-5"/>
+                <SelectBox id="location" :optionItems="locations" v-model:selected="device.location_id" :disabled="device.status == 4? true:false"/>
+                <div class="map w-full pb-5" >
+                    <img :src="'/img/map.png'" alt="" class="pb-5">
+                    <div class="ce subject">
+                        <svg v-if="device.location_id == 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="orthopedics subject">
+                        <svg v-if="device.location_id == 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ophthalmology subject">
+                        <svg v-if="device.location_id == 3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="endoscope subject">
+                        <svg v-if="device.location_id == 4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="physiological-laboratory subject">
+                        <svg v-if="device.location_id == 5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="dermatology subject">
+                        <svg v-if="device.location_id == 6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="gynecology subject">
+                        <svg v-if="device.location_id == 7" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="rehabilitation subject">
+                        <svg v-if="device.location_id == 8" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="surgery subject">
+                        <svg v-if="device.location_id == 9" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="treatment-room subject">
+                        <svg v-if="device.location_id == 10" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="internal-medicine subject">
+                        <svg v-if="device.location_id == 11" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="urology subject">
+                        <svg v-if="device.location_id == 12" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="pediatrics subject">
+                        <svg v-if="device.location_id == 13" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" :color="statuses[device.status].color">
+                            <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.76 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                </div>
+                <!-- 操作ボタン -->
+                <div class="absolute bottom-0 right-3">
+                <PrimaryButton >キャンセル</PrimaryButton>
+                <PrimaryButton class="ml-3">更新</PrimaryButton>
+                </div>
+            </div>
         </div>
-    </div>
-
-
-
-
-    <div>
-        <v-row>
-            <v-col cols="12">
-                <v-card outlined>
-                    <v-card-text>
-                        <v-row>
-                            <v-col cols="12" md="6">
-                                <v-row>
-                                    <v-col cols="12">
-                                        <div class="device-img">
-                                            <img :src="src" alt="" width="100%">
-                                        </div>
-                                    </v-col>
-                                    <v-col cols="3" >
-                                    <v-subheader>管理番号</v-subheader>
-                                    </v-col>
-                                    <v-col cols="8" >
-                                        <v-text-field
-                                        height="10"
-                                        single-line
-                                        outlined
-                                        dense
-                                        color="#959595"
-                                        persistent-hint
-                                        type="number"
-                                        hide-spin-buttons
-                                        v-model="device.device_id"
-                                        :filled="(device.id === '') ? true : false"
-                                        disabled
-                                    ></v-text-field>
-                                    </v-col>
-
-
-                                    <v-col cols="3" >
-                                    <v-subheader>製品名</v-subheader>
-                                    </v-col>
-                                    <v-col cols="8" >
-                                        <v-text-field
-                                        height="10"
-                                        single-line
-                                        outlined
-                                        dense
-                                        color="#959595"
-                                        persistent-hint
-                                        type="text"
-                                        hide-spin-buttons
-                                        v-model="device.device_name"
-                                        :filled="(device.name === '') ? true : false"
-                                    ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="3" >
-                                    <v-subheader>メーカー</v-subheader>
-                                    </v-col>
-                                    <v-col cols="8" >
-                                        <v-text-field
-                                        height="10"
-                                        single-line
-                                        outlined
-                                        dense
-                                        color="#959595"
-                                        persistent-hint
-                                        type="text"
-                                        hide-spin-buttons
-                                        v-model="device.manufacturer_name"
-                                        :filled="(device.manufacturer === '') ? true : false"
-                                    ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12">
-                                        <v-subheader>状態</v-subheader>
-                                        <v-btn
-                                            v-for="(item,index) in status"
-                                            :key="item.label" elevation="0"
-                                            :color="item.color" tile class="ma-2"
-                                            :outlined="index !== device.status"
-                                            @click="changeStatus(index)"
-                                        ><span >{{item.label}}</span>
-                                        </v-btn>
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                            <v-col cols="12" md="6">
-                                <v-row>
-                                    <v-col cols="3" >
-                                    <v-subheader>次回点検日</v-subheader>
-                                    </v-col>
-                                    <v-col cols="7" >
-                                        <v-text-field
-                                        height="10"
-                                        single-line
-                                        outlined
-                                        dense
-                                        color="#959595"
-                                        persistent-hint
-                                        type="date"
-                                        hide-spin-buttons
-                                        v-model="device.inspection_date"
-                                        :filled="(device.inspection_date === '') ? true : false"
-                                    ></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" >
-                                        <v-subheader>現在配置</v-subheader>
-                                        <v-row>
-                                            <v-col cols="5">
-                                                <v-text-field
-                                                    height="10"
-                                                    single-line
-                                                    outlined
-                                                    dense
-                                                    color="#959595"
-                                                    type="text"
-                                                    hide-spin-buttons
-                                                    :value="device.location_name"
-                                                    :filled="(device.inspection_date === '') ? true : false"
-                                                    readonly
-                                                    class="current-location-textarea"
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-icon size="30" class="pb-6">mdi-arrow-right-bold</v-icon>
-                                            <v-col cols="5">
-                                                <v-select
-                                                height="10"
-                                                single-line
-                                                dense
-                                                outlined
-                                                color="#959595"
-                                                :items="locations"
-                                                label="移動先"
-                                                v-model="device.location"
-                                                ></v-select>
-                                            </v-col>
-                                        </v-row>
-                                        <div class="map">
-                                            <img :src="'/img/map.png'" alt="">
-                                            <div class="ce subject">
-                                                <v-icon size="5vh" v-show="device.location ==='臨床工学室'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="orthopedics subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='整形外科'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="ophthalmology subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='眼科'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="endoscope subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='内視鏡センター'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="physiological-laboratory subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='生理検査室'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="dermatology subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='皮膚科'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="gynecology subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='産婦人科'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="rehabilitation subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='リハビリテーション室'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="surgery subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='外科'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="treatment-room subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='処置室'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="internal-medicine subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='内科'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="urology subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='泌尿器科'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                            <div class="pediatrics subject">
-                                                <v-icon size="5vh" v-show="this.device.location ==='小児科'" :color="color[device.status]">mdi-map-marker</v-icon>
-                                            </div>
-                                        </div>
-                                    </v-col>
-                                    <v-col>
-                                        <v-card-actions class="justify-end">
-                                            <v-btn tile elevation="1" @click="cancel">キャンセル</v-btn>
-                                            <v-btn tile elevation="1"  @click="updateDevice">更新</v-btn>
-                                        </v-card-actions>
-                                    </v-col>
-                                </v-row>
-                            </v-col>
-                        </v-row>
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
     </div>
     </AuthenticatedLayout>
 </template>
@@ -416,10 +310,8 @@ p{
 }
 /* 各科目の位置 */
 .map{
-    overflow: scroll;
     position: relative;
     padding: 10px;
-    /* border: 1px solid black; */
 }
 .subject{
     position: absolute;

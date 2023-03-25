@@ -65,5 +65,9 @@ class LocationSeeder extends Seeder
             'id' => '13',
             'name' => '小児科',
         ]);
+        Location::create([
+            'id' => '99',
+            'name' => '廃棄',
+        ]);
     }
 }
