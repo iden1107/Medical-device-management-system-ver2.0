@@ -92,31 +92,31 @@ const imgSrc = computed(() => {
 const active = computed(() =>{
     return function(arg){
         switch (arg){
-            case 1:
+            case 0:
                 if(props.device.status == arg){
                     return 'block text-white bg-[#6B9CE4] focus:outline-none hover:bg-[#6B9CE4] hover:text-white transition duration-150 ease-in-out';
                 }else{
                     return 'block text-[#6B9CE4] border-[#6B9CE4] focus:outline-none hover:bg-[#6B9CE4] hover:text-white transition duration-150 ease-in-out';
                 }
-            case 2:
+            case 1:
                 if(props.device.status == arg){
                     return 'block text-white bg-[#80E368] focus:outline-none hover:bg-[#80E368] hover:text-white transition duration-150 ease-in-out';
                 }else{
                     return 'block text-[#80E368] border-[#80E368] focus:outline-none hover:bg-[#80E368] hover:text-white transition duration-150 ease-in-out';
                 }
-            case 3:
+            case 2:
                 if(props.device.status == arg){
                     return 'block text-white bg-[#E3DD68] focus:outline-none hover:bg-[#E3DD68] hover:text-white transition duration-150 ease-in-out';
                 }else{
                     return 'block text-[#E3DD68] border-[#E3DD68] focus:outline-none hover:bg-[#E3DD68] hover:text-white transition duration-150 ease-in-out';
                 }
-            case 4:
+            case 3:
                 if(props.device.status == arg){
                     return 'block text-white bg-[#E36868] focus:outline-none hover:bg-[#E36868] hover:text-white transition duration-150 ease-in-out';
                 }else{
                     return 'block text-[#E36868] border-[#E36868] focus:outline-none hover:bg-[#E36868] hover:text-white transition duration-150 ease-in-out';
                 }
-            case 5:
+            case 4:
                 if(props.device.status == arg){
                     return 'block text-white bg-[#979797] focus:outline-none hover:bg-[#979797] hover:text-white transition duration-150 ease-in-out';
                 }else{
@@ -129,11 +129,11 @@ const active = computed(() =>{
 );
 const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','#979797']; // これは不要！！！！！！！！！！！！！！！
 const statuses = [
-    {id:1,label:'稼働中',color:'#6B9CE4'},
-    {id:2,label:'待機中',color:'#80E368'},
-    {id:3,label:'点検中',color:'#E3DD68'},
-    {id:4,label:'修理中',color:'#E36868'},
-    {id:5,label:' 廃棄 ',color:'#979797'},
+    {id:0,label:'稼働中',color:'#6B9CE4'},
+    {id:1,label:'待機中',color:'#80E368'},
+    {id:2,label:'点検中',color:'#E3DD68'},
+    {id:3,label:'修理中',color:'#E36868'},
+    {id:4,label:' 廃棄 ',color:'#979797'},
 ]
 
 
