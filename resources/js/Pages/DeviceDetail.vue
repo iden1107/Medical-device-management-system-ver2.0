@@ -66,6 +66,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import TextInput from '@/Components/TextInput.vue';
 import InputLabel from '@/Components/InputLabel.vue';
 import SelectBox from '@/Components/SelectBox.vue';
+import SelectButton from '@/Components/SelectButton.vue';
+
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
 
@@ -85,22 +87,64 @@ const imgSrc = computed(() => {
     }else{
         return '/img/noImage.jpeg'
     }
-
 });
+// ボタンのクラス制御
+const active = computed(() =>{
+    return function(arg){
+        switch (arg){
+            case 1:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#6B9CE4] focus:outline-none hover:bg-[#6B9CE4] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#6B9CE4] border-[#6B9CE4] focus:outline-none hover:bg-[#6B9CE4] hover:text-white transition duration-150 ease-in-out';
+                }
+            case 2:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#80E368] focus:outline-none hover:bg-[#80E368] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#80E368] border-[#80E368] focus:outline-none hover:bg-[#80E368] hover:text-white transition duration-150 ease-in-out';
+                }
+            case 3:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#E3DD68] focus:outline-none hover:bg-[#E3DD68] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#E3DD68] border-[#E3DD68] focus:outline-none hover:bg-[#E3DD68] hover:text-white transition duration-150 ease-in-out';
+                }
+            case 4:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#E36868] focus:outline-none hover:bg-[#E36868] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#E36868] border-[#E36868] focus:outline-none hover:bg-[#E36868] hover:text-white transition duration-150 ease-in-out';
+                }
+            case 5:
+                if(props.device.status == arg){
+                    return 'block text-white bg-[#979797] focus:outline-none hover:bg-[#979797] hover:text-white transition duration-150 ease-in-out';
+                }else{
+                    return 'block text-[#979797] border-[#979797] focus:outline-none hover:bg-[#979797] hover:text-white transition duration-150 ease-in-out';
+                }
+        }
+    }
+}
+
+);
 const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','#979797']; // これは不要！！！！！！！！！！！！！！！
 const statuses = [
-    {id:1,label:'稼働中',color:'#80E368'},
-    {id:2,label:'待機中',color:'#6B9CE4'},
+    {id:1,label:'稼働中',color:'#6B9CE4'},
+    {id:2,label:'待機中',color:'#80E368'},
     {id:3,label:'点検中',color:'#E3DD68'},
     {id:4,label:'修理中',color:'#E36868'},
-    {id:5,label:'廃棄',color:'#979797'},
+    {id:5,label:' 廃棄 ',color:'#979797'},
 ]
 
+
+const changeStatus = (id) =>{
+    props.device.status = id;
+}
 </script>
 
 
 <template>
-    <Head title="詳細 - " />{{device}}
+    <Head title="詳細 - " />
     <AuthenticatedLayout>
 
     <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
@@ -112,6 +156,7 @@ const statuses = [
             <div class="sm:col-span-6 bg-blue-400 text-center text-white p-2 rounded">2</div>
         </div> -->
 
+            {{device}}
         <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-6">
             <!-- 左画面 -->
             <div class="sm:col-span-6 px-3">
@@ -143,12 +188,10 @@ const statuses = [
                 <InputLabel for="manufacturer_name" value="メーカー" class="mt-5"/>
                 <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id"/>
                 <!-- 状態 -->
-                <InputLabel for="manufacturer_name" value="状態" class="mt-5"/>
-                <!-- <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"> -->
-                <PrimaryButton class="Emerald-300" v-for="status in statuses" :key="status.id" :style="{'background-color':status.color}">
+                <InputLabel value="状態" class="mt-5"/>
+                <SelectButton v-for="status in statuses" :key="status.id" :class="active(status.id)" @click="changeStatus(status.id)">
                     {{status.label}}
-                </PrimaryButton>
-
+                </SelectButton>
             </div>
             <!--右画面  -->
             <div class="sm:col-span-6 p-2">2</div>
