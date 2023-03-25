@@ -63,29 +63,106 @@
 //     }
 // };
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import SelectBox from '@/Components/SelectBox.vue';
+import PrimaryButton from '@/Components/PrimaryButton.vue';
+
+
 import { Link, Head,usePage } from '@inertiajs/vue3';
 import { ref,computed } from 'vue';
-// { "device_id": 17, "device_name": "点滴ポンプ", "inspection_date": "2023-06-01", "status": 1, "location_id": 10,
-// "location_name": "処置室", "manufacturer_id": 1, "manufacturer_name": "A社" }
 
-defineProps({
+const props = defineProps({
     device:Object,
     manufacturers:Object
 })
 const locations = computed(() => usePage().props.locations).value
-const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
+const imgSrc = computed(() => {
+    if(props.device.device_name == '点滴ポンプ'){
+        return '/img/device1.jpeg';
+    }else if(props.device.device_name == '心電図モニター'){
+        return '/img/device2.jpeg';
+    }else{
+        return '/img/noImage.jpeg'
+    }
+
+});
+const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','#979797']; // これは不要！！！！！！！！！！！！！！！
+const statuses = [
+    {id:1,label:'稼働中',color:'#80E368'},
+    {id:2,label:'待機中',color:'#6B9CE4'},
+    {id:3,label:'点検中',color:'#E3DD68'},
+    {id:4,label:'修理中',color:'#E36868'},
+    {id:5,label:'廃棄',color:'#979797'},
+]
 
 </script>
 
 
 <template>
-    <Head title="詳細-" />
+    <Head title="詳細 - " />{{device}}
     <AuthenticatedLayout>
+
+    <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
+        <!-- サンプル -->
+        <!-- <div class="grid sm:grid-cols-12 grid-cols-1 gap-3">
+            <div class="sm:col-span-5 bg-blue-400 text-center text-white p-2 rounded">1</div>
+            <div class="sm:col-span-7 bg-blue-400 text-center text-white p-2 rounded">2</div>
+            <div class="sm:col-span-6 bg-blue-400 text-center text-white p-2 rounded">1</div>
+            <div class="sm:col-span-6 bg-blue-400 text-center text-white p-2 rounded">2</div>
+        </div> -->
+
+        <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-6">
+            <!-- 左画面 -->
+            <div class="sm:col-span-6 px-3">
+                <!-- 画像 -->
+                <InputLabel for="device_id" value="写真画像"/>
+                <div class="w-full pb-3">
+                    <img :src="imgSrc" alt="" class="w-full">
+                </div>
+                <!-- 管理番号 -->
+                <InputLabel for="device_id" value="管理番号" />
+                <TextInput
+                    id="device_id"
+                    type="text"
+                    class="mt-1 block w-2/3 text-gray-300"
+                    v-model="device.device_id"
+                    disabled
+                    required
+                />
+                <!-- 製品名 -->
+                <InputLabel for="device_name" value="製品名" class="mt-5"/>
+                <TextInput
+                    id="device_name"
+                    type="text"
+                    class="mt-1 block w-2/3"
+                    v-model="device.device_name"
+                    required
+                />
+                <!-- メーカー -->
+                <InputLabel for="manufacturer_name" value="メーカー" class="mt-5"/>
+                <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id"/>
+                <!-- 状態 -->
+                <InputLabel for="manufacturer_name" value="状態" class="mt-5"/>
+                <!-- <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing"> -->
+                <PrimaryButton class="Emerald-300" v-for="status in statuses" :key="status.id" :style="{'background-color':status.color}">
+                    {{status.label}}
+                </PrimaryButton>
+
+            </div>
+            <!--右画面  -->
+            <div class="sm:col-span-6 p-2">2</div>
+
+        </div>
+    </div>
+
+
+
+
     <div>
         <v-row>
             <v-col cols="12">
                 <v-card outlined>
-    {{locations}}
                     <v-card-text>
                         <v-row>
                             <v-col cols="12" md="6">
@@ -113,6 +190,8 @@ const color = ['#80E368','#6B9CE4','#E3DD68','#E36868','gray'];
                                         disabled
                                     ></v-text-field>
                                     </v-col>
+
+
                                     <v-col cols="3" >
                                     <v-subheader>製品名</v-subheader>
                                     </v-col>

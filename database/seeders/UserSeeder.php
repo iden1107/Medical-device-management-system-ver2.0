@@ -15,24 +15,24 @@ class UserSeeder extends Seeder
     {
         User::create([
             'id' => '1',
-            'name' => '日本 太郎',
-            'kana' => 'ニホン タロウ',
+            'name' => '医療 太郎',
+            'kana' => 'イリョウ タロウ',
             'department_id' => '1',
             'employment_date' => '2022-04-01',
             'password' => bcrypt('1111')
         ]);
         User::create([
             'id' => '2',
-            'name' => '日本 花子',
-            'kana' => 'ニホン ハナコ',
+            'name' => '医療 花子',
+            'kana' => 'イリョウ ハナコ',
             'department_id' => '2',
             'employment_date' => '2022-04-01',
             'password' => bcrypt('2222')
         ]);
         User::create([
             'id' => '3',
-            'name' => '日本 二郎',
-            'kana' => 'ニホン ジロウ',
+            'name' => '医療 二郎',
+            'kana' => 'イリョウ ジロウ',
             'department_id' => '1',
             'employment_date' => '2022-04-01',
             'password' => bcrypt('3333')

@@ -15,10 +15,9 @@ const status =
     {label:'待機中',color:'#6B9CE4'},
     {label:'点検中',color:'#E3DD68'},
     {label:'修理中',color:'#E36868'},
-    {label:'廃棄',color:'gray'},
+    {label:'廃棄',color:'#979797'},
 ]
 const dialog = ref(false);
-const selectDeviceID = ref('0000')
 
 function zeroPadding(id){
     return ( '000' + id ).slice( -4 );
@@ -36,7 +35,7 @@ function isExpired(inspection_date){
 </script>
 
 <template>
-    <Head title="フロアマップ-" />
+    <Head title="フロアマップ - " />
     <AuthenticatedLayout>
         <div class="py-3">
             <div class="map max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">

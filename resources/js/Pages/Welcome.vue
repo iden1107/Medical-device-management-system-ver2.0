@@ -27,6 +27,7 @@ const submit = () => {
 
 <template>
     <GuestLayout>
+        <Head title="医療機器管理システム" />
 
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">
             {{ status }}
@@ -66,7 +67,7 @@ const submit = () => {
             </div>
 
             <div class="flex items-center justify-end mt-4">
-                <PrimaryButton class="ml-4" :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
+                <PrimaryButton class="ml-4 focus:outline-none focus:ring-2 focus:ring-Emerald-300 focus:ring-offset-2 " :class="{ 'opacity-25': form.processing }" :disabled="form.processing">
                     ログイン
                 </PrimaryButton>
             </div>

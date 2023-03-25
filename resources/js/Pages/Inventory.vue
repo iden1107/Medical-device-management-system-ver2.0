@@ -122,7 +122,7 @@ const isUpdateData = computed(() =>{
 
 
 <template>
-    <Head title="在庫管理-" />
+    <Head title="在庫管理 - " />
     <AuthenticatedLayout>
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
                 <v-card-title>在庫管理</v-card-title>
