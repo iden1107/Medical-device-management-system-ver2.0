@@ -15,6 +15,13 @@ const drawer = ref(false)
 // app/Http/Middleware/HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
 const time = computed(() => usePage().props.setting.setting_minutes).value;
 const user = computed(() => usePage().props.auth.user).value;
+const isAdmin = computed(() => {
+    if(usePage().props.auth.user.id == 9999){
+        return true;
+    }else{
+        return false;
+    }
+});
 
 let timerID = 1;
 
@@ -27,7 +34,6 @@ function clearTime(){
 function logout(){
     document.getElementById("logoutButton").click()
 }
-
 // 自動ログアウト  データベースに設定した時間が経過したらログアウト
 onMounted(() => {
     timerID = setTimeout(function() {
@@ -86,14 +92,14 @@ document.addEventListener('click',clearTime)
                         <NavLink :href="route('inventory')" :active="route().current('inventory')">
                             在庫管理
                         </NavLink>
-                        <NavLink :href="route('deviceList')" :active="route().current('device_list')" v-if="user.id == 9999 ? true:true">
-                            一覧
+                        <NavLink :href="route('deviceList')" :active="route().current('device_list')" v-if="isAdmin">
+                            機器管理
                         </NavLink>
-                        <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="user.id == 9999 ? true:false">
-                            一覧
+                        <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="isAdmin">
+                            職員管理
                         </NavLink>
-                        <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="user.id == 9999 ? true:false">
-                            一覧
+                        <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="isAdmin">
+                            設定
                         </NavLink>
                 </div>
             </header>

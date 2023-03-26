@@ -67,7 +67,7 @@ class LocationSeeder extends Seeder
         ]);
         Location::create([
             'id' => '99',
-            'name' => '廃棄',
+            'name' => '',
         ]);
     }
 }

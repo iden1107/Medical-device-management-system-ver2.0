@@ -96,7 +96,7 @@ const updateLocation = () => {
                     </v-col>
                     <div class="flex justify-end">
                         <SecondaryButton @click="cancel" :disabled="Object.keys(updateData).length ? false:true">キャンセル</SecondaryButton>
-                        <Link as="button" @click="updateLocation">
+                        <Link as="button" @click="updateLocation" preserve-scroll>
                             <SecondaryButton class="ml-3" :disabled="Object.keys(updateData).length ? false:true">更新</SecondaryButton>
                         </Link>
                     </div>

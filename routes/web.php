@@ -36,9 +36,7 @@ Route::group(['middleware' => ['auth', 'can:all']], function () {
 });
 // 管理者のみ
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
-    Route::get('/device_list', function(){
-        dd('matumot');
-    })->name('deviceList');
+    Route::get('/device_list', [DeviceController::class, 'showDeviceList'] )->name('deviceList');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

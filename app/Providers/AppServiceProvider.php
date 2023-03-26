@@ -30,14 +30,12 @@ class AppServiceProvider extends AuthServiceProvider
         // View::share('setting', $setting);
 
         $this->registerPolicies();
-        $user = Auth::user();
-
+        
         Gate::define('all', function ($user) {
             return ($user->permission <= 1);
         });
 
         Gate::define('admin', function ($user) {
-
             return ($user->permission == 1);
         });
     }

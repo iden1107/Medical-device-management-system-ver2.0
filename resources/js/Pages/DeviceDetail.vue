@@ -21,6 +21,13 @@ const statuses = [
     {id:4,label:' 廃棄 ',color:'#979797'},
 ]
 const locations = computed(() => usePage().props.locations).value
+const isAdmin = computed(() => {
+    if(usePage().props.auth.user.id == 9999){
+        return true;
+    }else{
+        return false;
+    }
+});
 const imgSrc = computed(() => {
     if(props.device.device_name == '点滴ポンプ'){
         return '/img/device1.jpeg';
@@ -111,27 +118,28 @@ const cancel = () =>{
                         required
                     />
                     <!-- 製品名 -->
-                    <InputLabel for="device_name" value="製品名" class="mt-5"/>
+                    <InputLabel for="device_name" value="製品名" class="mt-5" />
                     <TextInput
                         id="device_name"
                         type="text"
-                        class="mt-1 w-2/3"
+                        class="mt-1 w-2/3 text-gray-300"
                         v-model="device.device_name"
+                        disabled
                         required
                     />
                     <!-- メーカー -->
                     <InputLabel for="manufacturer_name" value="メーカー" class="mt-5"/>
-                    <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id"/>
-                    <!-- 状態 -->
-                    <InputLabel value="状態" class="mt-5"/>
-                    <SelectButton v-for="status in statuses" :key="status.id" :class="active(status.id)" @click="changeStatus(status.id)">
-                        {{status.label}}
-                    </SelectButton>
+                    <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id" class="mt-1 w-2/3 text-gray-300" disabled/>
                 </div>
                 <!--右画面  -->
                 <div class="sm:col-span-6 px-3 pb-5 relative">
+                    <!-- 状態 -->
+                    <InputLabel value="状態"/>
+                    <SelectButton v-for="status in statuses" :key="status.id" :class="active(status.id)" @click="changeStatus(status.id)">
+                        {{status.label}}
+                    </SelectButton>
                     <!-- 次回点検日 -->
-                    <InputLabel for="inspection_date" value="次回点検日"/>
+                    <InputLabel for="inspection_date" value="次回点検日" class="mt-5"/>
                     <TextInput
                         id="inspection_date"
                         type="date"
