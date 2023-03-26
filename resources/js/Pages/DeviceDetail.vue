@@ -139,8 +139,8 @@ const cancel = () =>{
                         v-model="device.inspection_date"
                         required
                     />
-                    <!-- 現在配置 -->
-                    <InputLabel for="location" value="現在配置" class="mt-5"/>
+                    <!-- 配置先 -->
+                    <InputLabel for="location" value="配置先" class="mt-5"/>
                     <SelectBox id="location" :optionItems="locations" v-model:selected="device.location_id" :disabled="device.status == 4? true:false"/>
                     <div class="map w-full pb-5" >
                         <img :src="'/img/map.png'" alt="" class="pb-5">

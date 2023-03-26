@@ -83,7 +83,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '4',
             'inspection_date' => '2023-06-01',
-            'location_id' => '99',
+            'location_id' => '7',
         ]);
         Device::create([
             'id' => '10',
@@ -91,7 +91,7 @@ class DeviceSeeder extends Seeder
             'manufacturer_id' => '1',
             'status' => '0',
             'inspection_date' => '2023-06-01',
-            'location_id' => '5',
+            'location_id' => '99',
         ]);
         Device::create([
             'id' => '11',

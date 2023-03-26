@@ -36,7 +36,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/floormap', [DeviceController::class, 'showFloormap'])->name('floormap');
     Route::get('/inventory', [DeviceController::class, 'showInventory'])->name('inventory');
     Route::get('/device_detail/{device}',[DeviceController::class, 'showDeviceDetail'])->name('deviceDetail')->where('id', '[0-9]+');
-    Route::patch('/device/{device}/update',[DeviceController::class, 'update'])->name('deviceUpdate')->where('id', '[0-9]+');
+    Route::patch('/device/{device}/update',[DeviceController::class, 'updateDevice'])->name('updateDevice')->where('id', '[0-9]+');
+    Route::patch('/device/update_location',[DeviceController::class, 'updateLocation'])->name('updateLocation');
 });
 
 Route::middleware('auth')->group(function () {

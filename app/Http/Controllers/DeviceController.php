@@ -35,7 +35,7 @@ class DeviceController extends Controller
             'manufacturers' => Manufacturer::all()
         ]);
     }
-    public function update(Request $request,Device $device)
+    public function updateDevice(Request $request,Device $device)
     {
         // ルートモデルバインディングでupdateする方法
         // $device->name = $request->device_name;
@@ -54,5 +54,16 @@ class DeviceController extends Controller
         ]);
 
         return redirect()->route('floormap');
+    }
+    public function updateLocation(Request $request,Device $device)
+    {
+        $data =  $request->all();
+        foreach($data as $locationID => $val){
+            foreach($val as $deviceID){
+                Device::where('id', $deviceID)->update([
+                    'location_id' => $locationID
+                ]);
+            };
+        };
     }
 }
