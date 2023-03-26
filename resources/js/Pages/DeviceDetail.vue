@@ -84,9 +84,7 @@ const cancel = () =>{
 <template>
     <Head title="詳細 - " />
     <AuthenticatedLayout>
-
     <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
-            {{device}}
         <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-6">
                 <!-- 左画面 -->
                 <div class="sm:col-span-6 px-3">
