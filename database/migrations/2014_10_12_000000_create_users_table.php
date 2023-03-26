@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('department_id')->constrained();
             $table->date('employment_date');
             $table->boolean('status')->default(1);
+            $table->boolean('permission')->default(0);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

@@ -13,7 +13,8 @@ const showingNavigationDropdown = ref(false);
 const drawer = ref(false)
 
 // app/Http/Middleware/HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
-const time = computed(() => usePage().props.setting.setting_minutes).value
+const time = computed(() => usePage().props.setting.setting_minutes).value;
+const user = computed(() => usePage().props.auth.user).value;
 
 let timerID = 1;
 
@@ -53,7 +54,7 @@ document.addEventListener('click',clearTime)
                             </div>
                         </div>
 
-                        <div class="flex text-white items-center font-medium">　　　ログイン名：{{ $page.props.auth.user.name }}</div>
+                        <div class="flex text-white items-center font-medium">　　　ログイン名：{{ user.name }}</div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <Link :href="route('logout')" method="post" as="button">
@@ -84,6 +85,15 @@ document.addEventListener('click',clearTime)
                         </NavLink>
                         <NavLink :href="route('inventory')" :active="route().current('inventory')">
                             在庫管理
+                        </NavLink>
+                        <NavLink :href="route('deviceList')" :active="route().current('device_list')" v-if="user.id == 9999 ? true:true">
+                            一覧
+                        </NavLink>
+                        <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="user.id == 9999 ? true:false">
+                            一覧
+                        </NavLink>
+                        <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="user.id == 9999 ? true:false">
+                            一覧
                         </NavLink>
                 </div>
             </header>

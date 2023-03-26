@@ -19,27 +19,27 @@ use App\Http\Controllers\DeviceController;
 */
 
 Route::get('/', function () {
-    if (Auth::user() == null){
-        return Inertia::render('Welcome', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
-        ]);
-        return Inertia::render('login');
+    $user = Auth::user();
+    if ($user == null){
+        return Inertia::render('Welcome');
     }else{
         return redirect()->to('/floormap');
     };
 });
-
-Route::group(['middleware' => 'auth'], function () {
+// 全員
+Route::group(['middleware' => ['auth', 'can:all']], function () {
     Route::get('/floormap', [DeviceController::class, 'showFloormap'])->name('floormap');
     Route::get('/inventory', [DeviceController::class, 'showInventory'])->name('inventory');
     Route::get('/device_detail/{device}',[DeviceController::class, 'showDeviceDetail'])->name('deviceDetail')->where('id', '[0-9]+');
     Route::patch('/device/{device}/update',[DeviceController::class, 'updateDevice'])->name('updateDevice')->where('id', '[0-9]+');
     Route::patch('/device/update_location',[DeviceController::class, 'updateLocation'])->name('updateLocation');
 });
-
+// 管理者のみ
+Route::group(['middleware' => ['auth', 'can:admin']], function () {
+    Route::get('/device_list', function(){
+        dd('matumot');
+    })->name('deviceList');
+});
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

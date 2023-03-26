@@ -37,5 +37,14 @@ class UserSeeder extends Seeder
             'employment_date' => '2022-04-01',
             'password' => bcrypt('3333')
         ]);
+        User::create([
+            'id' => '9999',
+            'name' => '管理者',
+            'kana' => 'カンリシャ',
+            'department_id' => '1',
+            'employment_date' => '2022-04-01',
+            'password' => bcrypt('9999'),
+            'permission' => '1'
+        ]);
     }
 }
