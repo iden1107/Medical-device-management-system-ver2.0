@@ -17,7 +17,7 @@ class DeviceSeeder extends Seeder
             'id' => '1',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '3',
             'inspection_date' => '2023-06-01',
             'location_id' => '1',
         ]);
@@ -33,8 +33,8 @@ class DeviceSeeder extends Seeder
             'id' => '3',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
-            'inspection_date' => '2023-06-01',
+            'status' => '0',
+            'inspection_date' => '2023-03-01',
             'location_id' => '2',
         ]);
         Device::create([
@@ -49,7 +49,7 @@ class DeviceSeeder extends Seeder
             'id' => '5',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '0',
             'inspection_date' => '2023-06-01',
             'location_id' => '1',
         ]);
@@ -57,15 +57,15 @@ class DeviceSeeder extends Seeder
             'id' => '6',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
-            'inspection_date' => '2023-06-01',
+            'status' => '0',
+            'inspection_date' => '2023-05-01',
             'location_id' => '11',
         ]);
         Device::create([
             'id' => '7',
-            'name' => '点滴ポンプ',
+            'name' => '心電図モニター',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '2',
             'inspection_date' => '2023-06-01',
             'location_id' => '9',
         ]);
@@ -73,23 +73,23 @@ class DeviceSeeder extends Seeder
             'id' => '8',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
-            'inspection_date' => '2023-06-01',
-            'location_id' => '1',
+            'status' => '3',
+            'inspection_date' => '2023-02-01',
+            'location_id' => '4',
         ]);
         Device::create([
             'id' => '9',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '4',
             'inspection_date' => '2023-06-01',
-            'location_id' => '12',
+            'location_id' => '99',
         ]);
         Device::create([
             'id' => '10',
-            'name' => '点滴ポンプ',
+            'name' => '心電図モニター',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '0',
             'inspection_date' => '2023-06-01',
             'location_id' => '5',
         ]);
@@ -105,13 +105,13 @@ class DeviceSeeder extends Seeder
             'id' => '12',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '0',
             'inspection_date' => '2023-06-01',
             'location_id' => '8',
         ]);
         Device::create([
             'id' => '13',
-            'name' => '点滴ポンプ',
+            'name' => '心電図モニター',
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
@@ -119,9 +119,9 @@ class DeviceSeeder extends Seeder
         ]);
         Device::create([
             'id' => '14',
-            'name' => '点滴ポンプ',
+            'name' => '心電図モニター',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '0',
             'inspection_date' => '2023-06-01',
             'location_id' => '4',
         ]);
@@ -129,7 +129,7 @@ class DeviceSeeder extends Seeder
             'id' => '15',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '3',
             'inspection_date' => '2023-06-01',
             'location_id' => '1',
         ]);
@@ -145,13 +145,13 @@ class DeviceSeeder extends Seeder
             'id' => '17',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '2',
             'inspection_date' => '2023-06-01',
             'location_id' => '1',
         ]);
         Device::create([
             'id' => '18',
-            'name' => '点滴ポンプ',
+            'name' => '心電図モニター',
             'manufacturer_id' => '1',
             'status' => '1',
             'inspection_date' => '2023-06-01',
@@ -161,7 +161,7 @@ class DeviceSeeder extends Seeder
             'id' => '19',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '0',
             'inspection_date' => '2023-06-01',
             'location_id' => '1',
         ]);
@@ -169,7 +169,7 @@ class DeviceSeeder extends Seeder
             'id' => '20',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '1',
+            'status' => '0',
             'inspection_date' => '2023-06-01',
             'location_id' => '6',
         ]);

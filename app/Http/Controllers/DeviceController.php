@@ -23,16 +23,36 @@ class DeviceController extends Controller
             'devices' => Device::all()->groupBy('location_id'),
         ]);
     }
-    public function showDeviceDetail($id)
+    public function showDeviceDetail(Device $device)
     {
         return Inertia::render('DeviceDetail',[
             'device' =>  DB::table('devices')
                             ->select('devices.id as device_id', 'devices.name as device_name', 'inspection_date','status' ,'location_id', 'locations.name as location_name','manufacturer_id','manufacturers.name as manufacturer_name')
                             ->leftJoin('manufacturers', 'devices.manufacturer_id', '=', 'manufacturers.id')
                             ->leftJoin('locations', 'devices.location_id','=','locations.id')
-                            ->where('devices.id', $id)
+                            ->where('devices.id', $device->id)
                             ->first(),
             'manufacturers' => Manufacturer::all()
         ]);
+    }
+    public function update(Request $request,Device $device)
+    {
+        // ルートモデルバインディングでupdateする方法
+        // $device->name = $request->device_name;
+        // $device->inspection_date = $request->inspection_date;
+        // $device->status = $request->status;
+        // $device->location_id = $request->location_id;
+        // $device->manufacturer_id = $request->manufacturer_id;
+        // $device->save();
+
+        Device::where('id', $device->id)->update([
+            'name' => $request->device_name,
+            'inspection_date' => $request->inspection_date,
+            'status' => $request->status,
+            'location_id' => $request->location_id,
+            'manufacturer_id' => $request->manufacturer_id,
+        ]);
+
+        return redirect()->route('floormap');
     }
 }
