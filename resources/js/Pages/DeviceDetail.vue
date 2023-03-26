@@ -84,6 +84,13 @@ const cancel = () =>{
 <template>
     <Head title="詳細 - " />
     <AuthenticatedLayout>
+        <!-- レスポンシブ レイアウトのサンプル -->
+        <!-- <div class="grid sm:grid-cols-12 grid-cols-1 gap-3">
+            <div class="sm:col-span-5 bg-blue-400 text-center text-white p-2 rounded">1</div>
+            <div class="sm:col-span-7 bg-blue-400 text-center text-white p-2 rounded">2</div>
+            <div class="sm:col-span-6 bg-blue-400 text-center text-white p-2 rounded">1</div>
+            <div class="sm:col-span-6 bg-blue-400 text-center text-white p-2 rounded">2</div>
+        </div> -->
     <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
         <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-6">
                 <!-- 左画面 -->

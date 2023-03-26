@@ -1,6 +1,6 @@
-# fly.toml file generated for hogefoo on 2023-03-19T22:55:02+09:00
+# fly.toml file generated for medical-device-management-system2 on 2023-03-26T10:03:42+09:00
 
-app = "hogefoo"
+app = "medical-device-management-system2"
 kill_signal = "SIGINT"
 kill_timeout = 5
 primary_region = "nrt"

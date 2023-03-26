@@ -127,8 +127,9 @@ const isUpdateData = computed(() =>{
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
                 <v-card-title>在庫管理</v-card-title>
                 <v-card-text>
-                    <a href="csv/sample1.csv" download class="block text-base text-Emerald-300 hover:underline mr-4 ">・サンプル1のcsvファイルをダウンロード</a>
-                    <a href="csv/sample2.csv" download class="block text-base text-Emerald-300 hover:underline">・サンプル2のcsvファイルをダウンロード</a>
+                    <p class="text-base">以下のデモ用ファイルをダウンロードしてください（タイムラグがあります）</p>
+                    <a href="csv/sample1.csv" download class="block text-base text-Emerald-300 hover:underline mr-4 ">・sample1.csvをダウンロード</a>
+                    <a href="csv/sample2.csv" download class="block text-base text-Emerald-300 hover:underline">・sample2.csvをダウンロード</a>
                     <v-col class="drop_area"
                         cols="12"
                         md="6"

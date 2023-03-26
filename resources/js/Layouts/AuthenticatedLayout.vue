@@ -57,7 +57,7 @@ document.addEventListener('click',clearTime)
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <Link :href="route('logout')" method="post" as="button">
-                                <PrimaryButton class="ml-4 bg-white text-Emerald-300 hover:text-white hover:border-white" id="logoutButton">
+                                <PrimaryButton class="ml-4 bg-white text-Emerald-400 hover:text-white hover:border-white" id="logoutButton">
                                     ログアウト
                                 </PrimaryButton>
                             </Link>

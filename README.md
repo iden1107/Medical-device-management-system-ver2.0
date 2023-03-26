@@ -1,66 +1,54 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+# 医療機器管理システム
+![スクリーンショット 2022-05-03 18 32 56](https://user-images.githubusercontent.com/96964613/166432162-d34b8870-7354-44b2-a76f-ca849fbde98a.png)
 
-## About Laravel
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### リンク
+[https://medical-device-management-system2.fly.dev/](https://medical-device-management-system2.fly.dev/)
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## サービス概要
+架空の病院内での医療機器の配置状況を確認できるデモアプリケーションです。
+## 目的
+各機器の管理番号と点検日を目視で確認、紙媒体に記録する業務の時間短縮を目的とする
+## 解決策
+各機器の管理番号をバーコードを発行し貼り付け、バーコードリーダーやハンディターミナルで読み取りパソコンで一括処理を行う
+## 利点
+- 在庫状況が一目で分かるようになる
+- 点検日を超過した機器の現在地が分かる
+- 各フロアでの過不足状況が把握できる
+## 実装機能
+- 台帳登録・更新<br>
+  院内の機器を新規登録、または更新できる台帳を一覧で表示
+- 現在地をcsvファイルで一括更新<br>
+  バーコードリーダーやハンディターミナルで各機器のバーコードを読み取り、csvをドラッグ&ドロップで現在の配置状況を一括更新
+  ※デモ用サンプルのcsvファイルをダウンロードして下さい。
+  ![タイトルなし](https://user-images.githubusercontent.com/96964613/166459644-99698a0b-d36e-43d7-bd81-b413c78ca4a5.gif)
 
-## Learning Laravel
+- 点検日を通知<br>
+  点検日を超過した機器はアイコンで点滅表示
+- 自動ログアウト機能<br>
+  情報保護のため自動ログアウト機能を追加。時間は任意で設定可能。
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## 使用技術
+### フロントエンド
+- Vue 2.6.12
+- Nunx.js 2.15.8
+- Vuetify 2.6.4
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### バックエンド
+- php 8.0.2
+- Laravel 9.2
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### データベース
+- Postgres 5.0
 
-## Laravel Sponsors
+### ライブラリ
+- laravel/breeze 1.8
+### インフラ
+- fly.io
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
 
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## ER図
+![スクリーンショット 2022-05-06 15 12 54](https://user-images.githubusercontent.com/96964613/167091151-14e901b6-0413-49db-afba-76c8071dbe89.png)<br>
+テーブル間のリレーションはありません。
