@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeviceDetail from '@/Pages/DeviceDetail.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Link,Head } from '@inertiajs/vue3';
+import { Link,Head, usePage } from '@inertiajs/vue3';
 import { ref,computed } from 'vue';
 
 defineProps({

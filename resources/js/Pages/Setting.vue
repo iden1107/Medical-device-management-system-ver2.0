@@ -1,131 +1,52 @@
 <script setup>
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import DeviceDetail from '@/Pages/DeviceDetail.vue';
+import TextInput from '@/Components/TextInput.vue';
+import InputLabel from '@/Components/InputLabel.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import NavLink from '@/Components/NavLink.vue';
-import { Link,Head } from '@inertiajs/vue3';
+import { Link, Head, usePage } from '@inertiajs/vue3';
 import { ref,computed } from 'vue';
 
-defineProps({
-    devices:Object,
-});
-
-const status =
-[
-    {label:'稼働中',color:'#6B9CE4'},
-    {label:'待機中',color:'#80E368'},
-    {label:'点検中',color:'#E3DD68'},
-    {label:'修理中',color:'#E36868'},
-    {label:'廃棄',color:'#979797'},
-]
-const dialog = ref(false);
-
-function zeroPadding(id){
-    return ( '000' + id ).slice( -4 );
-}
-// 点検日超過の判定
-function isExpired(inspection_date){
-    let today = new Date()
-    let date = new Date(inspection_date)
-    if(date <= today){
-        return true
-    } else {
-        return false
-    }
-}
+const setting_minutes = computed(() => usePage().props.setting.setting_minutes).value;
 </script>
 
 <template>
     <Head title="設定 - " />
     <AuthenticatedLayout>
-        <div class="mt-3 py-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
-            setting画面
+        <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
+            <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-3">
+                <!-- 左画面 -->
+                <div class="sm:col-span-6 px-3">
+                    <InputLabel for="setting_minutes" value="自動ログアウト時間" />
+                    <TextInput
+                        id="setting_minutes"
+                        type="number"
+                        class="w-2/3 mt-1"
+                        v-model="$page.props.setting.setting_minutes"
+                        required
+                        autofocus
+                        data-format="$1 個"
+                    /> 分{{$page.props.setting.setting_minutes}}
+                    <p class="w-2/3 mt-1 px-1 text-[0.8rem]">1〜120の値で設定してください。画面上をクリックしてから設定した時間経が経過すると自動でログアウトします。</p>
+                </div>
+                <!-- 右画面 -->
+                <div class="sm:col-span-6 px-3 relative">
+                    <br>
+                    <div class="absolute bottom-0 right-3">
+                        <Link :href="`/setting`" method="patch" as="button" :data="$page.props.setting">
+                            <SecondaryButton class="ml-3">更新</SecondaryButton>
+                        </Link>
+                    </div>
+                </div>
+            </div>
         </div>
     </AuthenticatedLayout>
 </template>
 
 <style scoped >
-p{
-    font-size: 1vw;
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
     margin: 0;
-}
-.inspection-icon{
-    width:1.2vw;
-    /* min-width: 10px; */
-    animation: flash 3s linear infinite;
-}
-.device-id{
-    font-family:monospace, serif;
-}
-/* 各科目の位置 */
-.map{
-    position: relative;
-}
-.subject{
-    position: absolute;
-    box-sizing: border-box;
-}
-.ce{
-    left: 15%;
-    bottom: 76%;
-}
-.orthopedics{
-    left: 38%;
-    bottom: 80%;
-}
-.ophthalmology{
-    left: 49%;
-    bottom: 80%;
-}
-.endoscope{
-    left: 58%;
-    bottom: 79%;
-}
-.physiological-laboratory{
-    left: 66%;
-    bottom: 76.5%;
-}
-.dermatology{
-    left: 72.5%;
-    bottom: 69%;
-}
-.gynecology{
-    left: 84%;
-    bottom: 41%;
-}
-.rehabilitation{
-    left: 17%;
-    bottom: 35.5%;
-}
-.surgery{
-    left: 23%;
-    bottom: 16%;
-}
-.treatment-room{
-    left: 41%;
-    bottom: 21%;
-}
-.internal-medicine{
-    left: 48.5%;
-    bottom: 9%;
-}
-.urology{
-    left: 67%;
-    bottom: 9%;
-}
-.pediatrics{
-    left: 79%;
-    bottom: 9%;
-}
-/* 点検項目のフラッシュアニメーション */
-@keyframes flash {
-    0% {
-        opacity: 1;
-    }
-    90% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
 }
 </style>

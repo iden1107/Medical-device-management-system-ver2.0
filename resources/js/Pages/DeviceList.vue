@@ -28,6 +28,10 @@ const isAdmin = computed(() => {
 const link = (device_id) =>{
     router.get(`/device_detail/${device_id}`);
 }
+
+function zeroPadding(id){
+    return ( '000' + id ).slice( -4 );
+}
 </script>
 
 <template>
@@ -55,7 +59,7 @@ const link = (device_id) =>{
                                 style="cursor: pointer"
                                 @click="link(device.device_id)"
                             >
-                            <td>{{ device.device_id }}</td>
+                            <td>{{ zeroPadding(device.device_id) }}</td>
                             <td>{{ device.device_name }}</td>
                             <td>{{ device.manufacturer_name }}</td>
                             <td :style="{ color: status[device.status].color }">{{ status[device.status].label }}</td>

@@ -40,6 +40,7 @@ Route::group(['middleware' => ['auth', 'can:all']], function () {
 // 管理者のみ
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/setting', [SettingController::class, 'showSetting'])->name('setting');
+    Route::patch('/setting', [SettingController::class, 'set']);
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

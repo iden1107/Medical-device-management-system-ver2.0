@@ -85,6 +85,10 @@ const changeStatus = (id) =>{
 const cancel = () =>{
     form.post(route('floormap'));
 }
+
+function zeroPadding(id){
+    return ( '000' + id ).slice( -4 );
+}
 </script>
 
 
@@ -113,7 +117,7 @@ const cancel = () =>{
                         id="device_id"
                         type="text"
                         class="mt-1 w-2/3 text-gray-300"
-                        v-model="device.device_id"
+                        :value="zeroPadding(device.device_id)"
                         disabled
                         required
                     />
