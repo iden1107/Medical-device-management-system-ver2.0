@@ -81,7 +81,7 @@ class DeviceSeeder extends Seeder
             'id' => '9',
             'name' => '点滴ポンプ',
             'manufacturer_id' => '1',
-            'status' => '4',
+            'status' => '0',
             'inspection_date' => '2023-06-01',
             'location_id' => '7',
         ]);
@@ -89,7 +89,7 @@ class DeviceSeeder extends Seeder
             'id' => '10',
             'name' => '心電図モニター',
             'manufacturer_id' => '1',
-            'status' => '0',
+            'status' => '4',
             'inspection_date' => '2023-06-01',
             'location_id' => '99',
         ]);

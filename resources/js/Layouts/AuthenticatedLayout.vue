@@ -13,7 +13,15 @@ const showingNavigationDropdown = ref(false);
 const drawer = ref(false)
 
 // app/Http/Middleware/HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
-const time = computed(() => usePage().props.setting.setting_minutes).value
+const time = computed(() => usePage().props.setting.setting_minutes).value;
+const user = computed(() => usePage().props.auth.user).value;
+const isAdmin = computed(() => {
+    if(usePage().props.auth.user.id == 9999){
+        return true;
+    }else{
+        return false;
+    }
+});
 
 let timerID = 1;
 
@@ -26,7 +34,6 @@ function clearTime(){
 function logout(){
     document.getElementById("logoutButton").click()
 }
-
 // 自動ログアウト  データベースに設定した時間が経過したらログアウト
 onMounted(() => {
     timerID = setTimeout(function() {
@@ -53,7 +60,7 @@ document.addEventListener('click',clearTime)
                             </div>
                         </div>
 
-                        <div class="flex text-white items-center font-medium">　　　ログイン名：{{ $page.props.auth.user.name }}</div>
+                        <div class="flex text-white items-center font-medium">　　　ログイン名：{{ user.name }}</div>
 
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <Link :href="route('logout')" method="post" as="button">
@@ -79,11 +86,20 @@ document.addEventListener('click',clearTime)
             <!-- Page Menu -->
             <header class="bg-Emerald-300 hidden sm:block mt-10 w-full fixed z-10">
                 <div class="max-w-7xl mx-auto pt-2 px-4 sm:px-6 lg:px-8">
-                        <NavLink :href="route('floormap')" :active="route().current('floormap') || route().current('deviceDetail*')" >
+                        <NavLink :href="route('floormap')" :active="route().current('floormap')" >
                             配置図
                         </NavLink>
                         <NavLink :href="route('inventory')" :active="route().current('inventory')">
                             在庫管理
+                        </NavLink>
+                        <NavLink :href="route('deviceList')" :active="route().current('deviceList') || route().current('deviceDetail*')">
+                            機器管理
+                        </NavLink>
+                        <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="isAdmin">
+                            職員管理
+                        </NavLink>
+                        <NavLink :href="route('setting')" :active="route().current('setting')" v-if="isAdmin">
+                            設定
                         </NavLink>
                 </div>
             </header>

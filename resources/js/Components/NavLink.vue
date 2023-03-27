@@ -23,6 +23,6 @@ const classes = computed(() =>
 <style scoped>
 .item{
     display: inline-block;
-    width: 150px;
+    width: 110px;
 }
 </style>

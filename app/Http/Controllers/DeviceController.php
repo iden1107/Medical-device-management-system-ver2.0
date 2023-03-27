@@ -55,7 +55,7 @@ class DeviceController extends Controller
 
         return redirect()->route('floormap');
     }
-    public function updateLocation(Request $request,Device $device)
+    public function updateLocation(Request $request)
     {
         $data =  $request->all();
         foreach($data as $locationID => $val){
@@ -65,5 +65,15 @@ class DeviceController extends Controller
                 ]);
             };
         };
+    }
+    public function showDeviceList()
+    {
+        return Inertia::render('DeviceList', [
+            'devices' =>  DB::table('devices')
+                ->select('devices.id as device_id', 'devices.name as device_name', 'inspection_date', 'status', 'location_id', 'locations.name as location_name', 'manufacturer_id', 'manufacturers.name as manufacturer_name')
+                ->leftJoin('manufacturers', 'devices.manufacturer_id', '=', 'manufacturers.id')
+                ->leftJoin('locations', 'devices.location_id', '=', 'locations.id')
+                ->get()
+        ]);
     }
 }
