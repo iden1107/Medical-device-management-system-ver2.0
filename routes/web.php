@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DeviceController;
+use App\Http\Controllers\SettingController;
+use App\Models\Setting;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +39,7 @@ Route::group(['middleware' => ['auth', 'can:all']], function () {
 });
 // 管理者のみ
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
-    
+    Route::get('/setting', [SettingController::class, 'showSetting'])->name('setting');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
