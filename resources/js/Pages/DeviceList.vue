@@ -1,3 +1,35 @@
+<script setup>
+import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
+import DeviceDetail from '@/Pages/DeviceDetail.vue';
+import NavLink from '@/Components/NavLink.vue';
+import { Head, usePage, Link, router } from '@inertiajs/vue3';
+import { ref,computed } from 'vue';
+
+defineProps({
+    devices:Object,
+});
+
+const status = [
+    {label:'稼働中',color:'#6B9CE4'},
+    {label:'待機中',color:'#80E368'},
+    {label:'点検中',color:'#E3DD68'},
+    {label:'修理中',color:'#E36868'},
+    {label:'廃棄',color:'gray'},
+]
+
+const isAdmin = computed(() => {
+    if(usePage().props.auth.user.id == 9999){
+        return true;
+    }else{
+        return false;
+    }
+});
+
+const link = (device_id) =>{
+    router.get(`/device_detail/${device_id}`);
+}
+</script>
+
 <template>
     <Head title="機器管理 - " />
     <AuthenticatedLayout>
@@ -46,62 +78,3 @@
     min-width: 700px;
 }
 </style>
-
-<script setup>
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-import DeviceDetail from '@/Pages/DeviceDetail.vue';
-import NavLink from '@/Components/NavLink.vue';
-import { Head, usePage, Link, router } from '@inertiajs/vue3';
-import { ref,computed } from 'vue';
-
-defineProps({
-    devices:Object,
-});
-// export default {
-//     name: "Devices",
-//     data() {
-//         return {
-//             devices:[],
-const status = [
-                {label:'稼働中',color:'#6B9CE4'},
-                {label:'待機中',color:'#80E368'},
-                {label:'点検中',color:'#E3DD68'},
-                {label:'修理中',color:'#E36868'},
-                {label:'廃棄',color:'gray'},
-            ]
-
-const isAdmin = computed(() => {
-    if(usePage().props.auth.user.id == 9999){
-        return true;
-    }else{
-        return false;
-    }
-});
-
-//         };
-//     },
-//     methods: {
-//         getDevices(){
-//             axios.get('/api/getDevices').then((res)=>{
-//                 this.devices = res.data
-//             })
-//         },
-//         link(id){
-//             this.$router.push('/admin/devices/detail/' + id)
-//         }
-//     },
-//     watch:{
-//         $route(){
-//             this.getDevices()
-//         }
-//     },
-//     filters :{
-//         zeroPadding(value){
-//             return ( '000' + value ).slice( -4 );
-//         }
-//     },
-//     created(){
-//         this.getDevices()
-//     }
-// };
-</script>
