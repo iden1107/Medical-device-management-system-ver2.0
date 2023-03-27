@@ -122,14 +122,14 @@ const cancel = () =>{
                     <TextInput
                         id="device_name"
                         type="text"
-                        class="mt-1 w-2/3 text-gray-300"
+                        class="mt-1 w-2/3"
                         v-model="device.device_name"
-                        disabled
+                        :disabled="!isAdmin"
                         required
                     />
                     <!-- メーカー -->
                     <InputLabel for="manufacturer_name" value="メーカー" class="mt-5"/>
-                    <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id" class="mt-1 w-2/3 text-gray-300" disabled/>
+                    <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id" class="mt-1 w-2/3" :disabled="!isAdmin"/>
                 </div>
                 <!--右画面  -->
                 <div class="sm:col-span-6 px-3 pb-5 relative">
@@ -220,12 +220,10 @@ const cancel = () =>{
                     </div>
                     <!-- 操作ボタン -->
                     <div class="absolute bottom-0 right-3">
-                    <Link :href="`/floormap`">
-                        <SecondaryButton>キャンセル</SecondaryButton>
-                    </Link>
-                    <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device">
-                        <SecondaryButton class="ml-3">更新</SecondaryButton>
-                    </Link>
+                        <a href="javascript:history.back();"><SecondaryButton>キャンセル</SecondaryButton></a>
+                        <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device">
+                            <SecondaryButton class="ml-3">更新</SecondaryButton>
+                        </Link>
                     </div>
                 </div>
         </div>
