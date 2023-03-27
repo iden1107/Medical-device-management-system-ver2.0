@@ -6,13 +6,11 @@ import SecondaryButton from '@/Components/SecondaryButton.vue';
 import NavLink from '@/Components/NavLink.vue';
 import { Link, Head, usePage } from '@inertiajs/vue3';
 import { ref,computed } from 'vue';
-
-const setting_minutes = computed(() => usePage().props.setting.setting_minutes).value;
 </script>
 
 <template>
     <Head title="設定 - " />
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :time="$page.props.setting.setting_minutes">
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
             <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-3">
                 <!-- 左画面 -->
@@ -22,11 +20,11 @@ const setting_minutes = computed(() => usePage().props.setting.setting_minutes).
                         id="setting_minutes"
                         type="number"
                         class="w-2/3 mt-1"
-                        v-model="$page.props.setting.setting_minutes"
+                        v-model.lazy="$page.props.setting.setting_minutes"
                         required
                         autofocus
                         data-format="$1 個"
-                    /> 分{{$page.props.setting.setting_minutes}}
+                    /> 分
                     <p class="w-2/3 mt-1 px-1 text-[0.8rem]">1〜120の値で設定してください。画面上をクリックしてから設定した時間経が経過すると自動でログアウトします。</p>
                 </div>
                 <!-- 右画面 -->

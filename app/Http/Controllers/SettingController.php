@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Models\Setting;
+use App\Http\Middleware\HandleInertiaRequests;
 
 class SettingController extends Controller
 {

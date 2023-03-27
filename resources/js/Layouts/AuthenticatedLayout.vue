@@ -96,10 +96,10 @@ document.addEventListener('click',clearTime)
                             機器管理
                         </NavLink>
                         <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="isAdmin">
-                            職員管理
+                            職員管理{{$page.props.setting.setting_minutes}}
                         </NavLink>
                         <NavLink :href="route('setting')" :active="route().current('setting')" v-if="isAdmin">
-                            設定
+                            設定{{time}}
                         </NavLink>
                 </div>
             </header>
