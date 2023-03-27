@@ -15,7 +15,7 @@ const status = [
     {label:'待機中',color:'#6B9CE4'},
     {label:'点検中',color:'#E3DD68'},
     {label:'修理中',color:'#E36868'},
-    {label:'廃棄',color:'gray'},
+    {label:'廃棄',color:'#979797'},
 ];
 let updateData = ref({});
 let fileName = 'csvファイルをドロップ'

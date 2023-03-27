@@ -33,10 +33,11 @@ Route::group(['middleware' => ['auth', 'can:all']], function () {
     Route::get('/device_detail/{device}',[DeviceController::class, 'showDeviceDetail'])->name('deviceDetail')->where('id', '[0-9]+');
     Route::patch('/device/{device}/update',[DeviceController::class, 'updateDevice'])->name('updateDevice')->where('id', '[0-9]+');
     Route::patch('/device/update_location',[DeviceController::class, 'updateLocation'])->name('updateLocation');
+    Route::get('/device_list', [DeviceController::class, 'showDeviceList'] )->name('deviceList');
 });
 // 管理者のみ
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
-    Route::get('/device_list', [DeviceController::class, 'showDeviceList'] )->name('deviceList');
+    
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
