@@ -69,6 +69,7 @@ function cancel(){
 const updateLocation = () => {
     router.patch('/device/update_location', updateData.value);
     updateData.value = {};
+    fileName = 'csvファイルをドロップ';
 };
 </script>
 

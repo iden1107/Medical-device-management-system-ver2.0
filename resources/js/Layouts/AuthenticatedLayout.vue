@@ -32,8 +32,9 @@ function clearTime(){
 }
 // ログアウトボタンのクリックをシュミレートする
 function logout(){
-    if(document.getElementById("logoutButton") != null){
-        document.getElementById("logoutButton").click()
+    const logoutButtonElement = document.getElementById("logoutButton")
+    if(logoutButtonElement != null){
+        logoutButtonElement.click()
     }
 }
 // 自動ログアウト  データベースに設定した時間が経過したらログアウト
@@ -48,9 +49,7 @@ document.addEventListener('click',clearTime)
 <template>
     <v-app>
         <div class="min-h-screen pb-0">
-
             <p>共通データの値{{$page.props.setting.setting_minutes}}</p>
-            <p>共通データの値(computedを介する){{time}}</p>
             <div class="bg-Emerald-400 shadow w-full fixed z-20">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
