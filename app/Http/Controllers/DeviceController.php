@@ -20,7 +20,7 @@ class DeviceController extends Controller
     public function showInventory()
     {
         return Inertia::render('Inventory',[
-            'devices' => Device::all()->groupBy('location_id'),
+            'devices' => Device::all()->groupBy('location_id')
         ]);
     }
     public function showDeviceDetail(Device $device)
@@ -73,6 +73,7 @@ class DeviceController extends Controller
                 ->select('devices.id as device_id', 'devices.name as device_name', 'inspection_date', 'status', 'location_id', 'locations.name as location_name', 'manufacturer_id', 'manufacturers.name as manufacturer_name')
                 ->leftJoin('manufacturers', 'devices.manufacturer_id', '=', 'manufacturers.id')
                 ->leftJoin('locations', 'devices.location_id', '=', 'locations.id')
+                ->orderBy('device_id','asc')
                 ->get()
         ]);
     }
