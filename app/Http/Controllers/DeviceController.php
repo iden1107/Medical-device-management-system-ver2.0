@@ -52,8 +52,9 @@ class DeviceController extends Controller
             'location_id' => $request->location_id,
             'manufacturer_id' => $request->manufacturer_id,
         ]);
-        
-        return redirect("/{$request->url}");
+        // dd($request->url);
+        // return redirect("{$request->url}");
+        return redirect()->route("deviceList");
     }
     public function updateLocation(Request $request)
     {
