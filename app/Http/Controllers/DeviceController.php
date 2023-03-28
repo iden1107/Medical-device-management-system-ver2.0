@@ -52,8 +52,8 @@ class DeviceController extends Controller
             'location_id' => $request->location_id,
             'manufacturer_id' => $request->manufacturer_id,
         ]);
-
-        return redirect()->route('floormap');
+dd($request->url);
+        return redirect("/{$request->url}");
     }
     public function updateLocation(Request $request)
     {

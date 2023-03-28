@@ -6,7 +6,7 @@ import SelectBox from '@/Components/SelectBox.vue';
 import SelectButton from '@/Components/SelectButton.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import SecondaryButton from '@/Components/SecondaryButton.vue';
-import { Link, Head,usePage } from '@inertiajs/vue3';
+import { Link, Head,usePage, router } from '@inertiajs/vue3';
 import { ref,computed } from 'vue';
 
 const props = defineProps({
@@ -82,9 +82,17 @@ const changeStatus = (id) =>{
         props.device.location_id = 99;
     }
 }
-const cancel = () =>{
-    form.post(route('floormap'));
-}
+
+const patchData = () => {
+    props.device.url = document.referrer
+    // router.patch(`/device/${props.device.device_id}/update`, {
+    //     data:props.device,
+    //     url:document.referrer
+    // });
+    router.patch(`/device/${props.device.device_id}/update`, props.device,
+
+    );
+};
 
 function zeroPadding(id){
     return ( '000' + id ).slice( -4 );
@@ -225,8 +233,9 @@ function zeroPadding(id){
                     <!-- 操作ボタン -->
                     <div class="absolute bottom-0 right-3">
                         <a href="javascript:history.back();"><SecondaryButton>キャンセル</SecondaryButton></a>
-                        <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device">
-                            <SecondaryButton class="ml-3">更新</SecondaryButton>
+                        <!-- <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device"> -->
+                        <Link as="button" @click="patchData">
+                            <SecondaryButton class="ml-3" >更新</SecondaryButton>
                         </Link>
                     </div>
                 </div>

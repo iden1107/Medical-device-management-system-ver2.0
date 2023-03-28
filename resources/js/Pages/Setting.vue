@@ -28,7 +28,7 @@ const patchData = () => {
                         autofocus
                         @blur="patchData"
                     > 分
-                    <p class="w-2/3 mt-1 px-1 text-[0.8rem]">0.1〜120.0の値で設定してください。画面上をクリックしてから設定した時間経が経過すると自動でログアウトします。</p>
+                    <p class="w-2/3 mt-1 px-1 text-[0.8rem]">0.1〜120.0の値で設定してください。画面上をクリックしてから設定した時間が経過すると自動でログアウトします。</p>
                 </div>
                 <!-- 右画面 -->
 
@@ -41,7 +41,7 @@ const patchData = () => {
                         </Link>
                     </div>
                 </div> -->
-                
+
             </div>
         </div>
     </AuthenticatedLayout>
