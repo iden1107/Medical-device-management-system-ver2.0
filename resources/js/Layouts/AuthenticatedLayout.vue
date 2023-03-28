@@ -13,7 +13,7 @@ const showingNavigationDropdown = ref(false);
 const drawer = ref(false)
 
 // app/Http/Middleware/HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
-const time = computed(() => usePage().props.setting.setting_minutes).value;
+// const time = computed(() => usePage().props.setting.setting_minutes).value;
 const user = computed(() => usePage().props.auth.user).value;
 const isAdmin = computed(() => {
     if(usePage().props.auth.user.id == 9999){
@@ -28,18 +28,19 @@ let timerID = 1;
 // setTimeOutをクリアする（クリックイベントでクリアするため）
 function clearTime(){
     clearTimeout(timerID);
-    timerID = setTimeout(logout, time * 60000);
+    timerID = setTimeout(logout, usePage().props.setting.setting_minutes * 60000);
 }
 // ログアウトボタンのクリックをシュミレートする
 function logout(){
-    document.getElementById("logoutButton").click()
+    if(document.getElementById("logoutButton") != null){
+        document.getElementById("logoutButton").click()
+    }
 }
 // 自動ログアウト  データベースに設定した時間が経過したらログアウト
-onMounted(() => {
-    timerID = setTimeout(function() {
-        logout
-    }, time * 60000)
-})
+timerID = setTimeout(function() {
+    logout
+}, usePage().props.setting.setting_minutes * 60000)
+
 // クリックするたびclearTime()を実行
 document.addEventListener('click',clearTime)
 </script>
@@ -47,6 +48,9 @@ document.addEventListener('click',clearTime)
 <template>
     <v-app>
         <div class="min-h-screen pb-0">
+
+            <p>共通データの値{{$page.props.setting.setting_minutes}}</p>
+            <p>共通データの値(computedを介する){{time}}</p>
             <div class="bg-Emerald-400 shadow w-full fixed z-20">
                 <!-- Primary Navigation Menu -->
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -96,7 +100,7 @@ document.addEventListener('click',clearTime)
                             機器管理
                         </NavLink>
                         <NavLink :href="route('inventory')" :active="route().current('inventory')" v-if="isAdmin">
-                            職員管理{{$page.props.setting.setting_minutes}}
+                            職員管理
                         </NavLink>
                         <NavLink :href="route('setting')" :active="route().current('setting')" v-if="isAdmin">
                             設定{{time}}

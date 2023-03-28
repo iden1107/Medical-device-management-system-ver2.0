@@ -10,21 +10,20 @@ import { ref,computed } from 'vue';
 
 <template>
     <Head title="設定 - " />
-    <AuthenticatedLayout :time="$page.props.setting.setting_minutes">
+    <AuthenticatedLayout>
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
             <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-3">
                 <!-- 左画面 -->
                 <div class="sm:col-span-6 px-3">
+                    現在のDBの値{{setting_minutes}}
                     <InputLabel for="setting_minutes" value="自動ログアウト時間" />
-                    <TextInput
+                    <input
                         id="setting_minutes"
                         type="number"
-                        class="w-2/3 mt-1"
+                        class=" w-2/3 mt-1 border-gray-300 px-2 py-1 focus:border-Emerald-300 focus:ring-Emerald-300 shadow-sm"
                         v-model.lazy="$page.props.setting.setting_minutes"
-                        required
                         autofocus
-                        data-format="$1 個"
-                    /> 分
+                    > 分
                     <p class="w-2/3 mt-1 px-1 text-[0.8rem]">1〜120の値で設定してください。画面上をクリックしてから設定した時間経が経過すると自動でログアウトします。</p>
                 </div>
                 <!-- 右画面 -->
