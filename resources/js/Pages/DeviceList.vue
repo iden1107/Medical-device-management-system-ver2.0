@@ -2,6 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import DeviceDetail from '@/Pages/DeviceDetail.vue';
 import NavLink from '@/Components/NavLink.vue';
+import SecondaryButton from '@/Components/SecondaryButton.vue';
 import { Head, usePage, Link, router } from '@inertiajs/vue3';
 import { ref,computed } from 'vue';
 
@@ -38,7 +39,12 @@ function zeroPadding(id){
     <Head title="機器管理 - " />
     <AuthenticatedLayout>
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
-            <v-card-title>機器管理<v-spacer></v-spacer> <v-btn tile elevation="1" to="/admin/devices/create">台帳追加</v-btn></v-card-title>
+            <div class="flex justify-between">
+                <v-card-title>機器管理</v-card-title>
+                <Link :href="route('deviceCreate')" method="get" as="button" v-if="isAdmin" class="items-center mr-2">
+                    <SecondaryButton class="ml-3" >新規追加</SecondaryButton>
+                </Link>
+            </div>
             <v-card-text>
                 <v-table density="compact" fixed-header height="75vh">
                     <template v-slot:default >
