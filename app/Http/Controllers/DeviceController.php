@@ -67,6 +67,20 @@ class DeviceController extends Controller
             'manufacturers' => Manufacturer::all()
         ]);
     }
+    public function deviceStore(Request $request,Device $device)
+    {
+        // dd($request);
+        Device::create([
+            'id' => $request->device_id,
+            'name' => $request->device_name,
+            'inspection_date' => $request->inspection_date,
+            'status' => $request->status,
+            'location_id' => $request->location_id,
+            'manufacturer_id' => $request->manufacturer_id,
+        ]);
+
+        return redirect()->route("deviceList");
+    }
     public function updateLocation(Request $request)
     {
         $data =  $request->all();

@@ -94,7 +94,7 @@ document.addEventListener('click',clearTime)
                         <NavLink :href="route('inventory')" :active="route().current('inventory')">
                             在庫管理
                         </NavLink>
-                        <NavLink :href="route('deviceList')" :active="route().current('deviceList') || route().current('deviceDetail*')">
+                        <NavLink :href="route('deviceList')" :active="route().current('deviceList') || route().current('deviceDetail*') || route().current('deviceCreate')">
                             機器管理
                         </NavLink>
                         <NavLink :href="route('users')" :active="route().current('users')" v-if="isAdmin">

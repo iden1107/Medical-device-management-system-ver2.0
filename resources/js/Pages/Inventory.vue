@@ -80,7 +80,7 @@ const updateLocation = () => {
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
                 <v-card-title>在庫管理</v-card-title>
                 <v-card-text>
-                    <p class="text-base">以下のデモ用ファイルをダウンロードしてください（タイムラグがあります）</p>
+                    <p class="text-base">以下のデモ用ファイルをダウンロードしてください</p>
                     <a href="csv/sample1.csv" download class="text-base text-Emerald-300 hover:underline mr-4 ">・sample1.csvをダウンロード</a><br/>
                     <a href="csv/sample2.csv" download class="text-base text-Emerald-300 hover:underline">・sample2.csvをダウンロード</a>
                     <v-col class="drop_area"

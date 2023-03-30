@@ -122,6 +122,7 @@ const fromJudge = computed(() =>{
     <Head title="詳細 - " />
     <AuthenticatedLayout>
     <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
+        {{device}}
         <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-6">
                 <!-- 左画面 -->
                 <div class="sm:col-span-6 px-3">
@@ -245,8 +246,8 @@ const fromJudge = computed(() =>{
                     <div class="absolute bottom-0 right-3">
                         <a href="javascript:history.back();"><SecondaryButton>キャンセル</SecondaryButton></a>
                         <!-- <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device"> -->
-                        <Link as="button" @click="">
-                            <SecondaryButton class="ml-3" :disabled="fromJudge">更新</SecondaryButton>
+                        <Link as="button" :href="route('deviceStore')" method="post" :data="device">
+                            <SecondaryButton class="ml-3" :disabled="fromJudge">登録</SecondaryButton>
                         </Link>
                     </div>
                 </div>
@@ -256,16 +257,10 @@ const fromJudge = computed(() =>{
 </template>
 
 <style scoped >
-.device-img{
-    width: 40vh;
-    height: 40vh;
-}
-.v-input{
-    border-radius: 0px;
-    padding: 0px;
-}
-.v-subheader{
-    padding: 0  0 0 5px  ;
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
 p{
     font-size: 0.11vw;

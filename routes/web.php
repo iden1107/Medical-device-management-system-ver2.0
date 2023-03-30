@@ -41,9 +41,10 @@ Route::group(['middleware' => ['auth', 'can:all']], function () {
 // 管理者のみ
 Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::get('/device/create',[DeviceController::class, 'showDeviceCreate'])->name('deviceCreate');
+    Route::post('/device/store',[DeviceController::class, 'deviceStore'])->name('deviceStore');
+    Route::get('/users', [UserController::class, 'showUsers'])->name('users');
     Route::get('/setting', [SettingController::class, 'showSetting'])->name('setting');
     Route::patch('/setting', [SettingController::class, 'set']);
-    Route::get('/users', [UserController::class, 'showUsers'])->name('users');
 });
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

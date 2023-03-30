@@ -41,8 +41,16 @@ function zeroPadding(id){
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
             <div class="flex justify-between">
                 <v-card-title>機器管理</v-card-title>
-                <Link :href="route('deviceCreate')" method="get" as="button" v-if="isAdmin" class="items-center mr-2">
-                    <SecondaryButton class="ml-3" >新規追加</SecondaryButton>
+                <!-- 管理者以外 -->
+                <SecondaryButton class="mt-2 ml-3 py-0 px-0 items-center mr-2" :disabled="!isAdmin" v-if="!isAdmin">
+                    <span>
+                        <span>新規追加</span><br/>
+                        <span class="text-[2px]">(管理者のみ)</span>
+                    </span>
+                </SecondaryButton>
+                <!-- 管理者のみ -->
+                <Link :href="route('deviceCreate')" method="get" as="button"  class="items-center mr-2" v-if="isAdmin">
+                    <SecondaryButton class="ml-3" :disabled="!isAdmin">新規追加</SecondaryButton>
                 </Link>
             </div>
             <v-card-text>

@@ -114,7 +114,6 @@ function zeroPadding(id){
         <div class="grid sm:grid-cols-12 grid-cols-1 gap-4 py-6">
                 <!-- 左画面 -->
                 <div class="sm:col-span-6 px-3">
-                    {{device}}
                     <!-- 画像 -->
                     <InputLabel for="device_id" value="写真画像"/>
                     <div class="w-full pb-3">
@@ -136,13 +135,14 @@ function zeroPadding(id){
                         id="device_name"
                         type="text"
                         class="mt-1 w-2/3"
+                        :class="{'text-gray-300':!isAdmin}"
                         v-model="device.device_name"
                         :disabled="!isAdmin"
                         required
                     />
                     <!-- メーカー -->
                     <InputLabel for="manufacturer_name" value="メーカー" class="mt-5"/>
-                    <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id" class="mt-1 w-2/3" :disabled="!isAdmin"/>
+                    <SelectBox id="manufacturer_name" :optionItems="manufacturers" v-model:selected="device.manufacturer_id" class="mt-1 w-2/3" :class="{'text-gray-300':!isAdmin}" :disabled="!isAdmin"/>
                 </div>
                 <!--右画面  -->
                 <div class="sm:col-span-6 px-3 pb-5 relative">
@@ -246,17 +246,12 @@ function zeroPadding(id){
 </template>
 
 <style scoped >
-.device-img{
-    width: 40vh;
-    height: 40vh;
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
 }
-.v-input{
-    border-radius: 0px;
-    padding: 0px;
-}
-.v-subheader{
-    padding: 0  0 0 5px  ;
-}
+
 p{
     font-size: 0.11vw;
     margin: 0;
