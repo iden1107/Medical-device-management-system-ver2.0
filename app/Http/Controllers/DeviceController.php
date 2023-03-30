@@ -59,10 +59,10 @@ class DeviceController extends Controller
     {
         return Inertia::render('DeviceCreate', [
             'device' =>  DB::table('devices')
-            ->select('devices.id as device_id', 'devices.name as device_name', 'inspection_date', 'status', 'location_id', 'locations.name as location_name', 'manufacturer_id', 'manufacturers.name as manufacturer_name')
-            ->leftJoin('manufacturers', 'devices.manufacturer_id', '=', 'manufacturers.id')
-            ->leftJoin('locations', 'devices.location_id', '=', 'locations.id')
-            ->where('devices.id', $device->id)
+                ->select('devices.id as device_id', 'devices.name as device_name', 'inspection_date', 'status', 'location_id', 'locations.name as location_name', 'manufacturer_id', 'manufacturers.name as manufacturer_name')
+                ->leftJoin('manufacturers', 'devices.manufacturer_id', '=', 'manufacturers.id')
+                ->leftJoin('locations', 'devices.location_id', '=', 'locations.id')
+                ->where('devices.id', $device->id)
                 ->first(),
             'manufacturers' => Manufacturer::all()
         ]);

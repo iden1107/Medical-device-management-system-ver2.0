@@ -127,7 +127,7 @@ const fromJudge = computed(() =>{
                 <!-- 左画面 -->
                 <div class="sm:col-span-6 px-3">
                     <!-- 画像 -->
-                    <InputLabel for="device_id" value="写真画像"/>
+                    <InputLabel value="写真画像"/>
                     <div class="w-full pb-3">
                         <img :src="imgSrc" alt="" class="w-full">
                     </div>
