@@ -16,7 +16,6 @@ const drawer = ref(false)
 
 <template>
     <div class="min-h-screen pb-0 ">
-        <!-- <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100"> -->
         <nav class="bg-Emerald-400  drop-shadow">
             <!-- Primary Navigation Menu -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,5 +32,33 @@ const drawer = ref(false)
         >
             <slot />
         </div>
+        <!-- 説明文 -->
+        <div class="w-full sm:max-w-md mx-auto mt-6 px-2 py-5">
+            <p>このサイトはポートフォリオのデモアプリケーションです</p>
+            <p >画像は無料のデザインツール<a href="https://www.design-ac.net/" class="text-Emerald-400 underline hover:opacity-70">「デザインAC」</a>より、アイコンは<a href="https://materialdesignicons.com/"  class="text-Emerald-400 underline hover:opacity-70">「Material Design Icons」</a>より使用しました</p>
+            <br>
+            <li class="mb-2">管理者ログイン
+                <ul>
+                    <li class="pl-6">職員番号：9999</li>
+                    <li class="pl-6">パスワード：9999</li>
+                </ul>
+            </li>
+            <li>職員ログイン
+                <ul>
+                    <li class="pl-6">職員番号：1</li>
+                    <li class="pl-6">パスワード：1111</li>
+                </ul>
+            </li>
+            <br>
+            <p>ソースコードは<a href="https://github.com/iden1107/Medical-device-management-system-ver2.0" target="_blank" class="text-Emerald-400 underline hover:opacity-70">GitHub</a>で公開してます</p>
+        </div>
+        <!-- フッター -->
+        <div class="w-full py-1 bg-Emerald-400 flex justify-center">
+            <p class="text-white">&copy; {{ new Date().getFullYear() }}  Kamino Hajime All rights recerved.</p>
+        </div>
     </div>
 </template>
+
+<style scoped>
+
+</style>

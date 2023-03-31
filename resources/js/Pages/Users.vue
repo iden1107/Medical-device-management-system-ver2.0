@@ -48,74 +48,71 @@ function zeroPadding(){
 <template>
     <Head title="職員設定 - " />
     <AuthenticatedLayout>
-        {{user}}
-        <!-- <div class=" max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow"> -->
-            <div class="mt-3 max-w-7xl mx-auto grid sm:grid-cols-12 grid-cols-1 gap-4 py-3">
-                <!-- 左画面 -->
-                <div class="sm:col-span-4">
-                    <div class="py-3 sm:px-4 lg:px-8 p-3 border border-gray-200 shadow">
-                        <InputLabel for="id" value="職員番号" />
-                        <TextInput
-                            id="id"
-                            type="number"
-                            class="mt-1 w-4/5"
-                            v-model="user.id"
-                            @blur="zeroPadding"
-                            required
-                        />
-                        <!-- 職員名 -->
-                        <InputLabel for="name" value="職員名" class="mt-5"/>
-                        <TextInput
-                            id="name"
-                            type="text"
-                            class="mt-1 w-4/5"
-                            v-model="user.name"
-                            required
-                        />
-                        <!-- フリガナ -->
-                        <InputLabel for="kana" value="フリガナ" class="mt-5" />
-                        <TextInput
-                            id="kana"
-                            type="text"
-                            class="mt-1 w-4/5"
-                            v-model="user.kana"
-                            required
-                        />
-                        <!-- 所属部署 -->
-                        <InputLabel for="manufacturer_name" value="所属部署" class="mt-5"/>
-                        <SelectBox id="manufacturer_name" :optionItems="departments" v-model:selected="user.department_id" class="mt-1 w-4/5"/>
-                        <!-- 入職日 -->
-                        <InputLabel for="inspection_date" value="入職日" class="mt-5"/>
-                        <TextInput
-                            id="inspection_date"
-                            type="date"
-                            class="mt-1 w-4/5"
-                            v-model="user.employment_date"
-                            required
-                        />
-                        <!-- パスワード -->
-                        <InputLabel for="password" value="パスワード" class="mt-5"/>
-                        <TextInput
-                            id="password"
-                            type="password"
-                            class="mt-1 w-4/5"
-                            v-model="user.password"
-                            required
-                        />
-                        <!-- 操作ボタン -->
-                        <div class="bottom-0 right-3 mt-8">
-                            <SecondaryButton @click="clear">キャンセル</SecondaryButton>
-                            <!-- <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device"> -->
-                            <Link as="button" @click="patchData">
-                                <SecondaryButton class="ml-3" :disabled="fromJudge">更新</SecondaryButton>
-                            </Link>
-                        </div>
+        <div class="mt-3 max-w-7xl mx-auto grid sm:grid-cols-12 grid-cols-1 gap-4 py-3">
+            <!-- 左画面 -->
+            <div class="sm:col-span-4">
+                <div class="py-3 sm:px-4 lg:px-8 p-3 border border-gray-200 shadow">
+                    <InputLabel for="id" value="職員番号" />
+                    <TextInput
+                        id="id"
+                        type="number"
+                        class="mt-1 w-4/5"
+                        v-model="user.id"
+                        @blur="zeroPadding"
+                        required
+                    />
+                    <!-- 職員名 -->
+                    <InputLabel for="name" value="職員名" class="mt-5"/>
+                    <TextInput
+                        id="name"
+                        type="text"
+                        class="mt-1 w-4/5"
+                        v-model="user.name"
+                        required
+                    />
+                    <!-- フリガナ -->
+                    <InputLabel for="kana" value="フリガナ" class="mt-5" />
+                    <TextInput
+                        id="kana"
+                        type="text"
+                        class="mt-1 w-4/5"
+                        v-model="user.kana"
+                        required
+                    />
+                    <!-- 所属部署 -->
+                    <InputLabel for="manufacturer_name" value="所属部署" class="mt-5"/>
+                    <SelectBox id="manufacturer_name" :optionItems="departments" v-model:selected="user.department_id" class="mt-1 w-4/5"/>
+                    <!-- 入職日 -->
+                    <InputLabel for="inspection_date" value="入職日" class="mt-5"/>
+                    <TextInput
+                        id="inspection_date"
+                        type="date"
+                        class="mt-1 w-4/5"
+                        v-model="user.employment_date"
+                        required
+                    />
+                    <!-- パスワード -->
+                    <InputLabel for="password" value="パスワード" class="mt-5"/>
+                    <TextInput
+                        id="password"
+                        type="password"
+                        class="mt-1 w-4/5"
+                        v-model="user.password"
+                        required
+                    />
+                    <!-- 操作ボタン -->
+                    <div class="bottom-0 right-3 mt-8">
+                        <SecondaryButton @click="clear">キャンセル</SecondaryButton>
+                        <!-- <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device"> -->
+                        <Link as="button" @click="patchData">
+                            <SecondaryButton class="ml-3" :disabled="fromJudge">登録</SecondaryButton>
+                        </Link>
                     </div>
                 </div>
-                <!-- 右画面 -->
-                <UsersList :users="users" :departments="departments"/>
             </div>
-        <!-- </div> -->
+            <!-- 右画面 -->
+            <UsersList :users="users" :departments="departments"/>
+            </div>
     </AuthenticatedLayout>
 </template>
 
