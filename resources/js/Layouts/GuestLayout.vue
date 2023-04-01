@@ -16,7 +16,7 @@ const drawer = ref(false)
 
 <template>
     <div class="min-h-screen pb-0 ">
-        <nav class="bg-Emerald-400  drop-shadow">
+        <nav class="bg-Emerald-400 drop-shadow">
             <!-- Primary Navigation Menu -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex justify-center h-10">
@@ -33,7 +33,7 @@ const drawer = ref(false)
             <slot />
         </div>
         <!-- 説明文 -->
-        <div class="w-full sm:max-w-md mx-auto mt-6 px-2 py-5 flex-grow">
+        <div class="w-full sm:max-w-md mx-auto mt-6 px-4 py-5">
             <p>このサイトはポートフォリオのデモアプリケーションです</p>
             <p >画像は無料のデザインツール<a href="https://www.design-ac.net/" class="text-Emerald-400 underline hover:opacity-70">「デザインAC」</a>より、アイコンは<a href="https://materialdesignicons.com/"  class="text-Emerald-400 underline hover:opacity-70">「Material Design Icons」</a>より使用しました</p>
             <br>
@@ -50,7 +50,7 @@ const drawer = ref(false)
                 </ul>
             </li>
             <br>
-            <p>ソースコードは<a href="https://github.com/iden1107/Medical-device-management-system-ver2.0" target="_blank" class="text-Emerald-400 underline hover:opacity-70">GitHub</a>で公開してます</p>
+            <p class="pb-5">ソースコードは<a href="https://github.com/iden1107/Medical-device-management-system-ver2.0" target="_blank" class="text-Emerald-400 underline hover:opacity-70">GitHub</a>で公開してます</p>
         </div>
         <!-- フッター -->
         <div class="w-full py-1 bg-Emerald-400 justify-center fixed bottom-0">
