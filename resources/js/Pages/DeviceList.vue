@@ -40,7 +40,7 @@ function zeroPadding(id){
     <AuthenticatedLayout>
         <div class="mt-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
             <div class="flex justify-between pt-3">
-                <h1 class="mb-3 text-xl font-medium">機器一覧</h1>
+                <h1 class="pl-3 mb-3 text-xl font-medium">機器一覧</h1>
                 <!-- 管理者以外 -->
                 <SecondaryButton class="mt-2 ml-3 py-0 px-0 items-center mr-2" :disabled="!isAdmin" v-if="!isAdmin">
                     <span>

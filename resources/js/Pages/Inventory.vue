@@ -78,7 +78,7 @@ const updateLocation = () => {
     <Head title="在庫管理 - " />
     <AuthenticatedLayout>
         <div class="mt-3 py-3 max-w-7xl mx-auto sm:px-6 lg:px-8 border border-gray-200 shadow">
-                <h1 class="mb-3 text-xl font-medium">在庫管理</h1>
+                <h1 class="pl-3 mb-3 text-xl font-medium">在庫管理</h1>
                 <v-card-text>
                     <p class="text-base">以下のデモ用ファイルをダウンロードしてください</p>
                     <a href="csv/sample1.csv" download class="text-base text-Emerald-300 hover:underline mr-4 ">・sample1.csvをダウンロード</a><br/>
