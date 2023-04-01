@@ -16,6 +16,9 @@ const props = defineProps({
 function zeroPadding(id){
     return ( '000' + id ).slice( -4 );
 }
+function link(id){
+    router.get(`/user/detail/${id}`);
+}
 </script>
 
 <template>
@@ -36,7 +39,7 @@ function zeroPadding(id){
                         v-for="user in users"
                         :key="user.id"
                         style="cursor: pointer"
-                        @click="link(user.id)"
+                        @click="link(user.users_id)"
                         >
                         <td>{{ zeroPadding(user.users_id) }}</td>
                         <td>{{ user.users_name }}</td>

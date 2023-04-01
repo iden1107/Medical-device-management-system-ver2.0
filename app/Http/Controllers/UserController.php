@@ -23,6 +23,19 @@ class UserController extends Controller
         ]);
     }
 
+    public function showUserDetail($id)
+    {
+        return Inertia::render('UserDetail',[
+            'departments' => Department::All(),
+            'user' => User::where('id',$id)->first(),
+            'users' => User::select('users.id as users_id','users.name as users_name','kana','department_id','departments.name as department_name','employment_date',)
+                        ->leftJoin('departments', 'department_id','=', 'departments.id')
+                        ->where('users.id','<>','9999')
+                        ->orderBy('users_id','asc')
+                        ->get()
+        ]);
+    }
+
     public function userStore(Request $request){
         User::create([
             'id' => $request->id,
