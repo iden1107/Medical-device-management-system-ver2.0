@@ -15,8 +15,8 @@ const props = defineProps({
     departments:Object
 })
 
-const patchData = () => {
-    router.patch('/user/store', user);
+const postData = () => {
+    router.post('/user/store', user);
     clear();
 };
 const clear = () =>{
@@ -52,6 +52,7 @@ function zeroPadding(){
             <!-- 左画面 -->
             <div class="sm:col-span-4">
                 <div class="py-3 sm:px-4 lg:px-8 p-3 border border-gray-200 shadow">
+                    <h1 class="mb-3 text-xl font-medium">新規登録</h1>
                     <InputLabel for="id" value="職員番号" />
                     <TextInput
                         id="id"
@@ -104,7 +105,7 @@ function zeroPadding(){
                     <div class="bottom-0 right-3 mt-8">
                         <SecondaryButton @click="clear">キャンセル</SecondaryButton>
                         <!-- <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device"> -->
-                        <Link as="button" @click="patchData">
+                        <Link as="button" @click="postData">
                             <SecondaryButton class="ml-3" :disabled="fromJudge">登録</SecondaryButton>
                         </Link>
                     </div>

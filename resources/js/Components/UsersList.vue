@@ -24,6 +24,7 @@ function link(id){
 <template>
     <div class=" sm:col-span-8">
         <div class=" px-3  border border-gray-200 shadow">
+            <h1 class="ml-3 my-3 text-xl font-medium">職員一覧</h1>
             <v-table fixed-header density="compact" class="p-3">
                 <template v-slot:default >
                     <thead>

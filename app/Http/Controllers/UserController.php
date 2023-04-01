@@ -17,6 +17,7 @@ class UserController extends Controller
             'departments' => Department::All(),
             'users' => User::select('users.id as users_id','users.name as users_name','kana','department_id','departments.name as department_name','employment_date',)
                         ->leftJoin('departments', 'department_id','=', 'departments.id')
+                        ->where('status', '=', '1')
                         ->where('users.id','<>','9999')
                         ->orderBy('users_id','asc')
                         ->get()
@@ -45,5 +46,30 @@ class UserController extends Controller
             'employment_date' => $request->employment_date,
             'password' => Hash::make($request->password),
         ]);
+    }
+
+    public function userUpdate(Request $request){
+        User::where('id',$request->id)
+            ->update([
+            'name' => $request->name,
+            'kana' => $request->kana,
+            'department_id' => $request->department_id,
+            'employment_date' => $request->employment_date,
+            'password' => Hash::make($request->password),
+        ]);
+        return redirect()->to('users');
+    }
+
+    public function userDelete(Request $request){
+        User::where('id',$request->id)
+            ->update([
+            'name' => $request->name,
+            'kana' => $request->kana,
+            'department_id' => $request->department_id,
+            'employment_date' => $request->employment_date,
+            'password' => Hash::make($request->password),
+            'status' => 0
+        ]);
+        return redirect()->to('users');
     }
 }

@@ -44,7 +44,9 @@ Route::group(['middleware' => ['auth', 'can:admin']], function () {
     Route::post('/device/store',[DeviceController::class, 'deviceStore'])->name('deviceStore');
     Route::get('/users', [UserController::class, 'showUsers'])->name('users');
     Route::get('/user/detail/{id}', [UserController::class, 'showUserDetail'])->name('userDetail');
-    Route::patch('/user/store', [UserController::class, 'userStore'])->name('userStore');
+    Route::post('/user/store', [UserController::class, 'userStore'])->name('userStore');
+    Route::patch('/user/update', [UserController::class, 'userUpdate'])->name('userUpdate');
+    Route::patch('/user/delete', [UserController::class, 'userDelete'])->name('userDelete');
     Route::get('/setting', [SettingController::class, 'showSetting'])->name('setting');
     Route::patch('/setting', [SettingController::class, 'set']);
 });

@@ -12,16 +12,21 @@ import { ref,computed } from 'vue';
 const props = defineProps({
     users:Object,
     user:Object,
-    departments:Object
+    departments:Object,
 })
+props.user.password = ''
 
 const patchData = () => {
-    router.patch('/user/store', user);
-    clear();
+    router.patch('/user/update', props.user);
 };
-const clear = () =>{
-    user.reset()
-}
+const deleteData = () => {
+    let result =window.confirm('削除してもよろしいですか？');
+    if(result){
+        router.patch('/user/delete', props.user);
+    }else{
+        return;
+    }
+};
 const fromJudge = computed(() =>{
     if(
         props.user.id == '' ||
@@ -52,14 +57,16 @@ function zeroPadding(){
             <!-- 左画面 -->
             <div class="sm:col-span-4">
                 <div class="py-3 sm:px-4 lg:px-8 p-3 border border-gray-200 shadow">
+                    <h1 class="mb-3 text-xl font-medium">詳細修正</h1>
                     <InputLabel for="id" value="職員番号" />
                     <TextInput
                         id="id"
                         type="number"
-                        class="mt-1 w-4/5"
+                        class="mt-1 w-4/ text-gray-300"
                         v-model="user.id"
                         @blur="zeroPadding"
                         required
+                        disabled
                     />
                     <!-- 職員名 -->
                     <InputLabel for="name" value="職員名" class="mt-5"/>
@@ -102,10 +109,11 @@ function zeroPadding(){
                     />
                     <!-- 操作ボタン -->
                     <div class="bottom-0 right-3 mt-8">
-                        <SecondaryButton @click="clear">キャンセル</SecondaryButton>
-                        <!-- <Link :href="`/device/${device.device_id}/update`" method="patch" as="button" :data="device"> -->
                         <Link as="button" @click="patchData">
-                            <SecondaryButton class="ml-3" :disabled="fromJudge">登録</SecondaryButton>
+                            <SecondaryButton class="ml-3" :disabled="fromJudge">更新</SecondaryButton>
+                        </Link>
+                        <Link as="button" @click="deleteData">
+                            <SecondaryButton class="ml-3">削除</SecondaryButton>
                         </Link>
                     </div>
                 </div>
