@@ -33,22 +33,22 @@
 
 ## 使用技術
 ### フロントエンド
-- Vue 2.6.12
-- Nunx.js 2.15.8
-- Vuetify 2.6.4
+- Vue3 1.0.0
+- Vuetify 3.1.4
+- tailwindcss 3.2.1
 
 ### バックエンド
 - php 8.0.2
 - Laravel 9.2
 
 ### データベース
-- Postgres 5.0
+- Postgres
 
 ### ライブラリ
 - laravel/breeze 1.8
+
 ### インフラ
 - fly.io
-
 
 ## ER図
 ![ER図](https://user-images.githubusercontent.com/96964613/229271834-2a93cdd6-7990-4386-a47f-87dc2df420f9.png)<br>
