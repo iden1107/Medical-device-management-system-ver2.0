@@ -4,6 +4,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo.vue';
 import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import NavLink from '@/Components/NavLink.vue';
+import SideMenu from '@/Components/SideMenu.vue';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 
@@ -11,6 +12,24 @@ import { Link, usePage } from '@inertiajs/vue3';
 
 const showingNavigationDropdown = ref(false);
 const drawer = ref(false)
+const items = [
+            {
+                title: 'Foo',
+                value: 'foo',
+            },
+            {
+                title: 'Bar',
+                value: 'bar',
+            },
+            {
+                title: 'Fizz',
+                value: 'fizz',
+            },
+            {
+                title: 'Buzz',
+                value: 'buzz',
+            },
+        ]
 
 // app/Http/Middleware/HandleInertiaRequests.phpで共通データを設定し、そのデータを引っ張ってくる
 // const time = computed(() => usePage().props.setting.setting_minutes).value;
@@ -101,7 +120,7 @@ document.addEventListener('click',clearTime)
                             職員管理
                         </NavLink>
                         <NavLink :href="route('setting')" :active="route().current('setting')" v-if="isAdmin">
-                            設定{{time}}
+                            設定
                         </NavLink>
                 </div>
             </header>
@@ -117,9 +136,22 @@ document.addEventListener('click',clearTime)
             v-model="drawer"
             temporary
         >
-            <v-list
-            :items="items"
-            ></v-list>
+            <div class="text-center py-3">メニュー</div>
+            <SideMenu :href="route('floormap')" :active="route().current('floormap')" >
+                配置図
+            </SideMenu>
+            <SideMenu :href="route('inventory')" :active="route().current('inventory')">
+                在庫管理
+            </SideMenu>
+            <SideMenu :href="route('deviceList')" :active="route().current('deviceList') || route().current('deviceDetail*') || route().current('deviceCreate')">
+                機器管理
+            </SideMenu>
+            <SideMenu :href="route('users')" :active="route().current('users') || route().current('userDetail*') " v-if="isAdmin">
+                職員管理
+            </SideMenu>
+            <SideMenu :href="route('setting')" :active="route().current('setting')" v-if="isAdmin">
+                設定
+            </SideMenu>
         </v-navigation-drawer>
     </v-app>
 </template>

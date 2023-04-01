@@ -33,7 +33,7 @@ const drawer = ref(false)
             <slot />
         </div>
         <!-- 説明文 -->
-        <div class="w-full sm:max-w-md mx-auto mt-6 px-2 py-5">
+        <div class="w-full sm:max-w-md mx-auto mt-6 px-2 py-5 flex-grow">
             <p>このサイトはポートフォリオのデモアプリケーションです</p>
             <p >画像は無料のデザインツール<a href="https://www.design-ac.net/" class="text-Emerald-400 underline hover:opacity-70">「デザインAC」</a>より、アイコンは<a href="https://materialdesignicons.com/"  class="text-Emerald-400 underline hover:opacity-70">「Material Design Icons」</a>より使用しました</p>
             <br>
@@ -53,8 +53,8 @@ const drawer = ref(false)
             <p>ソースコードは<a href="https://github.com/iden1107/Medical-device-management-system-ver2.0" target="_blank" class="text-Emerald-400 underline hover:opacity-70">GitHub</a>で公開してます</p>
         </div>
         <!-- フッター -->
-        <div class="w-full py-1 bg-Emerald-400 flex justify-center">
-            <p class="text-white">&copy; {{ new Date().getFullYear() }}  Kamino Hajime All rights recerved.</p>
+        <div class="w-full py-1 bg-Emerald-400 justify-center fixed bottom-0">
+            <p class="text-white text-center">&copy; {{ new Date().getFullYear() }}  Kamino Hajime All rights recerved.</p>
         </div>
     </div>
 </template>
