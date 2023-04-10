@@ -126,7 +126,7 @@ document.addEventListener('click',clearTime)
             </header>
 
             <!-- Page Content -->
-            <main class="pt-10 sm:pt-20">
+            <main class="pt-10 sm:pt-20 pb-10">
                 <slot />
             </main>
         </div>
